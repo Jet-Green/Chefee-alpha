@@ -18,6 +18,11 @@ const router = createRouter({
             path: '/camera',
             name: 'Camera',
             component: () => import('../views/Camera.vue')
+        },
+        {
+            path: '/recipe',
+            name: 'RecipePage',
+            component: () => import('../views/RecipePage.vue')
         }
     ],
     // scrollBehavior(to, from, savedPosition) {

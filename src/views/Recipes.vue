@@ -1,5 +1,8 @@
 <script setup>
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+
+let router = useRouter()
 
 let request = ref('')
 let recipes = reactive([
@@ -17,7 +20,7 @@ let recipes = reactive([
     }
 ])
 
-let recipesToShow = ref([])
+let recipesToShow = ref(recipes)
 
 function includesIngr(ingrs) {
     for (let ingr of ingrs) {
@@ -53,7 +56,7 @@ function submit() {
         </v-form>
         <v-row>
             <v-col cols="12" sm="6" v-for="recipe in recipesToShow">
-                <v-card>
+                <v-card @click="router.push('/recipe')">
                     <v-card-title>{{ recipe.title }}</v-card-title>
                     <v-card-text>{{ recipe.ingridients }}</v-card-text>
                 </v-card>
