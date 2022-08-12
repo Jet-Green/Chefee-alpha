@@ -1,26 +1,14 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 let router = useRouter()
 
 let request = ref('')
-let recipes = reactive([
-    {
-        title: "Recipe!!!!!!!!!!!!",
-        ingridients: ["молоко", "сыр", "мука"]
-    },
-    {
-        title: "Recipe!!!!!!!!!!!!",
-        ingridients: ["малина", "мука"]
-    },
-    {
-        title: "Recipe!!!!!!!!!!!!",
-        ingridients: ["курица", "сыр", "картофель"]
-    }
-])
 
-let recipesToShow = ref(recipes)
+let recipes = ref([])
+let recipesToShow = ref([])
 
 function includesIngr(ingrs) {
     for (let ingr of ingrs) {
@@ -31,12 +19,21 @@ function includesIngr(ingrs) {
 
 function submit() {
     recipesToShow.value = []
-    for (let r of recipes) {
+    for (let r of recipes.value) {
         if (r.title.toLowerCase().includes(request.value.toLowerCase()) || includesIngr(r.ingridients)) {
             recipesToShow.value.push(r)
         }
     }
 }
+
+onMounted(() => {
+    axios.get('http://localhost:3300/recipes/get-all')
+        .then((res) => {
+            recipes.value = res.data;
+            recipesToShow.value = recipes.value;
+        })
+        .catch((err) => console.error(err))
+})
 </script>
 <template>
     <div class="mb-2">
