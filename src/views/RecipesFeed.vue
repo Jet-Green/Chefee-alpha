@@ -36,28 +36,26 @@ onMounted(() => {
 })
 </script>
 <template>
-    <div class="mb-2">
-        <h1>recipes and search</h1>
-        <router-link to="/camera">
-            <v-btn>СФОТОГРАФИРОВАТЬ!</v-btn>
-        </router-link>
-        <v-form @submit.prevent="submit">
-            <v-text-field v-model="request" placeholder="Введите" variant="outlined" density="compact"
-                hint="Помидор, мясо, макароны">
-                <!-- <template #append-icon>
-                </template> -->
-            </v-text-field>
-            <!-- <v-btn icon flat class="ml-2">
+    <!-- <v-form @submit.prevent="submit">
+        <v-text-field v-model="request" placeholder="Введите" variant="outlined" density="compact"
+            hint="Помидор, мясо, макароны">
+            <template #append-icon>
+            </template>
+        </v-text-field>
+        <v-btn icon flat class="ml-2">
             <v-icon icon="fas fa-search" />
-        </v-btn> -->
-        </v-form>
-        <v-row>
-            <v-col cols="12" sm="6" v-for="recipe in recipesToShow">
-                <v-card @click="router.push('/recipe')">
-                    <v-card-title>{{ recipe.title }}</v-card-title>
-                    <v-card-text>{{ recipe.ingridients }}</v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-    </div>
+        </v-btn>
+    </v-form> -->
+    <v-row class="d-flex justify-center">
+        <v-col cols="12" sm="8" md="6">
+            <v-row class="mt-6">
+                <v-col v-for="recipe in recipesToShow" cols="12">
+                    <v-card @click="router.push('/recipe')">
+                        <v-card-title>{{ recipe.title }}</v-card-title>
+                        <v-card-text>{{ recipe.ingridients }}</v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-col>
+    </v-row>
 </template>

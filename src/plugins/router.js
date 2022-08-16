@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Landing from '../views/Landing.vue'
+// import Landing from '../views/Landing.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
+        // {
+        //     path: '/',
+        //     name: 'Landing',
+        //     component: Landing
+        // },
         {
             path: '/',
-            name: 'Landing',
-            component: Landing
-        },
-        {
-            path: '/recipes',
-            name: 'Recipes',
-            component: () => import('../views/Recipes.vue')
+            name: 'RecipesFeed',
+            component: () => import('../views/RecipesFeed.vue')
         },
         {
             path: '/camera',
