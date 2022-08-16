@@ -1,7 +1,24 @@
 <template>
   <v-layout>
     <v-app-bar app>
-      <h2>Header</h2>
+      <v-row>
+        <v-col>
+          logo
+        </v-col>
+        <v-col>
+          <v-text-field variant="outlined" density="compact" placeholder="Поиск по ингридиентам или по названию"
+            hide-details="auto"></v-text-field>
+        </v-col>
+        <v-col>
+          <v-btn color="primary">Поиск по фото</v-btn>
+        </v-col>
+        <v-col>
+          войти
+        </v-col>
+        <v-col>
+          регистрация
+        </v-col>
+      </v-row>
     </v-app-bar>
     <v-main>
       <v-container>
