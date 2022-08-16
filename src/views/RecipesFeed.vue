@@ -1,7 +1,9 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+import RecipeCard from '../components/cards/RecipeCard.vue'
 
 let router = useRouter()
 
@@ -50,10 +52,7 @@ onMounted(() => {
         <v-col cols="12" sm="8" md="6">
             <v-row class="mt-6">
                 <v-col v-for="recipe in recipesToShow" cols="12">
-                    <v-card @click="router.push('/recipe')">
-                        <v-card-title>{{ recipe.title }}</v-card-title>
-                        <v-card-text>{{ recipe.ingridients }}</v-card-text>
-                    </v-card>
+                    <RecipeCard :recipe="recipe" />
                 </v-col>
             </v-row>
         </v-col>
