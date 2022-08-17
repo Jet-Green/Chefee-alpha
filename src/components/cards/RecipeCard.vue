@@ -1,8 +1,7 @@
 <script setup>
-import healthIndicatorHealthy from '../../assets/icons/health-indicator-healthy.svg'
-import heart from '../../assets/icons/heart.svg'
-import comments from '../../assets/icons/comments.svg'
-import repost from '../../assets/icons/repost.svg'
+import Rating from '../recipe/Rating.vue'
+import HealthIndex from '../recipe/HealthIndex.vue'
+
 import arrowRight from '../../assets/icons/arrow-circle-right.svg'
 
 const props = defineProps(['recipe'])
@@ -66,19 +65,10 @@ let recipe = props.recipe;
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
                 <!-- onclick by rating-item -->
-                <div class="rating-item ml-0">
-                    <img :src="heart" height="24" class="mr-1" /> {{ recipe.likes }}
-                </div>
-                <div class="rating-item">
-                    <img :src="comments" height="24" class="mr-1" /> {{ recipe.comments }}
-                </div>
-                <div class="rating-item">
-                    <img :src="repost" height="24" class="mr-1" /> {{ recipe.reposts }}
-                </div>
+                <Rating :rating="{ likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts }" />
             </v-col>
-            <v-col class="health-index">
-                {{ recipe.healthIndex }} / 10
-                <img :src="healthIndicatorHealthy" height="24" class="ml-1" />
+            <v-col>
+                <HealthIndex :healthIndex="recipe.healthIndex" />
             </v-col>
         </v-row>
 
@@ -177,20 +167,6 @@ let recipe = props.recipe;
         margin: 0 20px 0 20px;
         font-size: 12px;
         font-weight: 500;
-
-        .rating-item {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            margin-left: 12px;
-        }
-
-        .health-index {
-            display: flex;
-            align-items: center;
-            justify-content: end;
-            font-size: 20px;
-        }
     }
 
     .comments-section {
