@@ -1,21 +1,26 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
 import Rating from '../recipe/Rating.vue'
 import HealthIndex from '../recipe/HealthIndex.vue'
 
+import heart from '../../assets/icons/heart.svg'
 import arrowRight from '../../assets/icons/arrow-circle-right.svg'
 
+const router = useRouter();
 const props = defineProps(['recipe'])
+
 let recipe = props.recipe;
 </script>
 <template>
-    <div class="recipe-card">
+    <div class="recipe-card" @click="router.push({ name: 'RecipePage', params: recipe })">
         <v-row class="author-section">
             <v-col>
                 <v-avatar class="avatar"></v-avatar>
                 {{ recipe.author }}
             </v-col>
             <v-col class="d-flex justify-end">
-                <v-btn color="accent" variant="text" class="subscribe-btn">Подписаться
+                <v-btn color="accent" variant="text" class="accent-btn">Подписаться
                 </v-btn>
             </v-col>
         </v-row>
@@ -64,7 +69,6 @@ let recipe = props.recipe;
 
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
-                <!-- onclick by rating-item -->
                 <Rating :rating="{ likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts }" />
             </v-col>
             <v-col>
