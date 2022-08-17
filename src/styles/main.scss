@@ -42,5 +42,20 @@ body {
             font-size: 16px !important;
         }
     }
+    .recipe-card {
+        .author-section {
+            .subscribe-btn {
+                text-transform: none;
+            }
+        }
+        .comments-section {
+            .show-all-comments-btn {
+                text-transform: none;
+                font-size: 14px;
+                font-weight: 500;
+                color: #3C3730;
+            }
+        }
+    }
 }
 

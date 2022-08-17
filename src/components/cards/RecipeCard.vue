@@ -15,22 +15,27 @@ let recipe = props.recipe;
                 <v-avatar class="avatar"></v-avatar>
                 {{ recipe.author }}
             </v-col>
-            <v-col cols="3" class="d-flex justify-end">
-                <v-btn color="accent" variant="text">подписаться</v-btn>
+            <v-col class="d-flex justify-end">
+                <v-btn color="accent" variant="text" class="subscribe-btn">Подписаться
+                </v-btn>
             </v-col>
         </v-row>
+
+
         <v-row class="recipe-info-section">
-            <v-col cols="6">
+            <v-col cols="12" md="8" lg="7">
                 <h3>
                     {{ recipe.title }}
                 </h3>
             </v-col>
             <v-col class="d-flex align-center">
-                {{ recipe.ingredients.length }} ингредиентов
                 <v-menu :close-on-content-click="false" location="end">
                     <template v-slot:activator="{ props }">
-                        <v-icon v-bind="props" icon="mdi:mdi-chevron-down" style="width: 40px; height: 40px;">
-                        </v-icon>
+                        <div v-bind="props" class="ingr-dropdown">
+                            {{ recipe.ingredients.length }} ингредиентов
+                            <v-icon icon="mdi:mdi-chevron-down" style="width: 40px; height: 40px;">
+                            </v-icon>
+                        </div>
                     </template>
                     <v-card min-width="100">
                         <v-list>
@@ -42,25 +47,36 @@ let recipe = props.recipe;
                     </v-card>
                 </v-menu>
             </v-col>
-            <v-col class="d-flex align-center">
+            <v-col class="d-flex align-center jusitfy-end">
                 {{ recipe.portions }} порций
             </v-col>
             <v-col class="d-flex align-center">
                 {{ recipe.time }}
             </v-col>
         </v-row>
-        <v-row class="photo-container">
+
+
+        <v-row class="photo-section">
             <v-col>
-                <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg" class="photo"></v-img>
+                <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
             </v-col>
         </v-row>
+
+
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
-                <img :src="heart" height="24" class="mr-1" /> {{ recipe.likes }}
-                <img :src="comments" height="24" class="mr-1 ml-2" /> {{ recipe.comments }}
-                <img :src="repost" height="24" class="mr-1 ml-2" /> {{ recipe.reposts }}
+                <!-- onclick by rating-item -->
+                <div class="rating-item ml-0">
+                    <img :src="heart" height="24" class="mr-1" /> {{ recipe.likes }}
+                </div>
+                <div class="rating-item">
+                    <img :src="comments" height="24" class="mr-1" /> {{ recipe.comments }}
+                </div>
+                <div class="rating-item">
+                    <img :src="repost" height="24" class="mr-1" /> {{ recipe.reposts }}
+                </div>
             </v-col>
-            <v-col class="d-flex align-center justify-end">
+            <v-col class="health-index">
                 {{ recipe.healthIndex }} / 10
                 <img :src="healthIndicatorHealthy" height="24" class="ml-1" />
             </v-col>
@@ -95,9 +111,9 @@ let recipe = props.recipe;
                 </v-list>
             </v-col>
             <v-col cols="12">
-                <span class="show-all-comments">
+                <v-btn class="show-all-comments-btn" variant="text">
                     показать все комментарии
-                </span>
+                </v-btn>
             </v-col>
         </v-row>
 
@@ -126,7 +142,12 @@ let recipe = props.recipe;
     .author-section {
         margin: 20px 20px 0 20px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
+
+        font-size: 14px;
+        font-weight: 500;
+
 
         .avatar {
             background-color: #D8D8D8;
@@ -136,17 +157,39 @@ let recipe = props.recipe;
 
     .recipe-info-section {
         margin: 0 20px 0 20px;
+        font-size: 12px;
+
+        .ingr-dropdown {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+        }
     }
 
-    .photo {
-        object-fit: cover;
+    .photo-section {
+        img {
+            object-fit: cover;
+        }
     }
 
     .rating-section {
         margin: 0 20px 0 20px;
+        font-size: 12px;
+        font-weight: 500;
 
-        img {
+        .rating-item {
+            display: flex;
+            align-items: center;
             cursor: pointer;
+            margin-left: 12px;
+        }
+
+        .health-index {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            font-size: 20px;
         }
     }
 
@@ -173,10 +216,7 @@ let recipe = props.recipe;
             }
         }
 
-        .show-all-comments {
-            cursor: pointer;
-            color: #3C3730;
-        }
+
     }
 
     .add-comment-section {
