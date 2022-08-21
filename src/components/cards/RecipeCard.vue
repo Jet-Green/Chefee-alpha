@@ -132,6 +132,7 @@ let recipe = props.recipe;
     border-radius: 10px;
     font-weight: 400;
     padding: 0;
+    background-color: #fff;
 
     .author-section {
         margin: 20px 20px 0 20px;

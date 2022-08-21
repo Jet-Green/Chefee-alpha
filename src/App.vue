@@ -1,18 +1,15 @@
 <template>
   <v-layout>
-    <v-app-bar app>
+    <v-app-bar elevation="0" app>
       <v-row class="d-flex justify-space-between align-center">
         <v-col class="d-flex align-center" lg="2">
           logo
         </v-col>
 
-        <v-col class="d-flex align-center" lg="5">
+        <v-col class="d-flex align-center" lg="8" cols="8">
           <v-text-field variant="outlined" density="compact" placeholder="Поиск по ингридиентам или по названию"
             hide-details="auto"></v-text-field>
-        </v-col>
-
-        <v-col class="d-flex align-center" lg="3">
-          <v-btn color="accent" class="header-accent-button">Поиск по фото</v-btn>
+          <v-btn color="accent" class="header-accent-button ml-4">Поиск по фото</v-btn>
         </v-col>
 
         <v-col class="d-md-flex d-none align-center justify-end" cols="2">
