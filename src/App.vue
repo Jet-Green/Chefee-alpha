@@ -13,7 +13,7 @@
               <span class="material-icons">search</span>
             </template>
           </v-text-field>
-          <v-btn color="accent" class="accent-button ml-4">Поиск по фото</v-btn>
+          <v-btn class="accent-button ml-4">Поиск по фото</v-btn>
         </v-col>
 
         <v-col class="d-lg-flex d-none align-center justify-end" cols="2">

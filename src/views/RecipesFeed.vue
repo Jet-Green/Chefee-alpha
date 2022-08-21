@@ -38,16 +38,6 @@ onMounted(() => {
 })
 </script>
 <template>
-    <!-- <v-form @submit.prevent="submit">
-        <v-text-field v-model="request" placeholder="Введите" variant="outlined" density="compact"
-            hint="Помидор, мясо, макароны">
-            <template #append-icon>
-            </template>
-        </v-text-field>
-        <v-btn icon flat class="ml-2">
-            <v-icon icon="fas fa-search" />
-        </v-btn>
-    </v-form> -->
     <v-row class="d-flex justify-center">
         <v-col cols="12" sm="8" md="6">
             <v-row class="d-flex d-md-none justify-space-between">
@@ -59,8 +49,8 @@ onMounted(() => {
                         </template>
                     </v-text-field>
                 </v-col>
-                <v-col cols="12" class="d-flex justify-start">
-                    <v-btn color="accent" class="accent-button ml-4">Поиск по фото</v-btn>
+                <v-col cols="12">
+                    <v-btn class="accent-button">Поиск по фото</v-btn>
                 </v-col>
             </v-row>
             <v-row class="mt-6">

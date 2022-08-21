@@ -144,10 +144,11 @@ let recipe = route.params;
                 <v-col cols="12">
                     <v-row class="d-flex justify-center">
                         <v-col cols="8" class="d-flex justify-center">
-                            <v-textarea variant="outlined" placeholder="Добавьте комментарий" rows="3"></v-textarea>
+                            <v-textarea variant="outlined" placeholder="Добавьте комментарий" hide-details="auto"
+                                rows="3" style="background-color: #fff"></v-textarea>
                         </v-col>
                         <v-col cols="8" class="d-flex justify-center">
-                            <v-btn color="accent" class="header-accent-button">Отправить</v-btn>
+                            <v-btn class="accent-button">Отправить</v-btn>
                         </v-col>
                     </v-row>
                 </v-col>

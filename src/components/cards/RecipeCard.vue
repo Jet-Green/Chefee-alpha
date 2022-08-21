@@ -81,32 +81,34 @@ let recipe = props.recipe;
 
         <v-row class="comments-section">
             <v-col cols="12">
-                <v-list>
-                    <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
-                        :title="recipe.firstComment.author">
-                        <div class="text">
-                            {{ recipe.firstComment.text }}
-                        </div>
-                        <div class="actions">
-                            <v-btn class="action" variant="text">
-                                ответить
-                            </v-btn>
-                            <v-btn class="action" variant="text">
-                                поделиться
-                            </v-btn>
-                            <img :src="heart" height="14" />
-                        </div>
-                        <!-- <template v-slot:append>
-                            <v-btn variant="text" :class="fav ? 'text-red' : ''" icon="mdi-heart" @click="fav = !fav">
-                            </v-btn>
-                        </template> -->
-                    </v-list-item>
-                </v-list>
-            </v-col>
-            <v-col cols="12">
-                <v-btn class="show-all-comments-btn" variant="text">
-                    показать все комментарии
-                </v-btn>
+                <v-row class="comment">
+                    <v-col cols="12" class="comment-author">
+                        <v-avatar>
+                            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg">
+                            </v-img>
+                        </v-avatar>
+                        <span class="comment-author-name">
+                            {{ recipe.firstComment.author }}
+                        </span>
+                    </v-col>
+                    <v-col class="comment-text">
+                        {{ recipe.firstComment.text }}
+                    </v-col>
+                    <v-col cols="12" class="comment-actions">
+                        <v-btn variant="text">
+                            ответить
+                        </v-btn>
+                        <v-btn variant="text">
+                            поделиться
+                        </v-btn>
+                        <img :src="heart" height="16" />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-btn class="comment-show-all" variant="text">
+                            показать все комментарии
+                        </v-btn>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
 
@@ -170,32 +172,6 @@ let recipe = props.recipe;
         margin: 0 20px 0 20px;
         font-size: 12px;
         font-weight: 500;
-    }
-
-    .comments-section {
-        margin: 0 20px 0 20px;
-
-        .text {
-            font-size: 14px;
-            color: #666666;
-        }
-
-        .actions {
-            display: flex;
-            align-items: center;
-
-            .action {
-                color: #2A5885;
-                text-transform: none;
-            }
-
-            img {
-                margin: 0 0 0 6px;
-                cursor: pointer;
-            }
-        }
-
-
     }
 
     .add-comment-section {

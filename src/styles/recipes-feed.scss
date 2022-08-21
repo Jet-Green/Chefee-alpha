@@ -1,6 +1,34 @@
 .show-all-comments-btn {
-    text-transform: none;
     font-size: 14px;
     font-weight: 500;
     color: #3C3730;
+}
+.comment {
+    display: flex;
+    margin: 16px;
+    color: #666666;
+    font-size: 14px;
+}
+.comment-author {
+    margin-left: 12px;
+    padding-bottom: 0;
+    color: #3C3730;
+    font-weight: 500;
+}
+.comment-author-name {
+    margin-left: 12px;
+}
+.comment-text {
+    padding-top: 0;
+    margin-left: 64px;
+}
+.comment-actions {
+    display: flex;
+    align-items: center;
+    margin-left: 64px;
+    color: #2A5885;
+}
+.comment-show-all {
+    color: #3C3730;
+    font-weight: 500;
 }
