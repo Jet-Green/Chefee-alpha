@@ -1,5 +1,5 @@
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
+// import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
 // Vuetify
@@ -12,7 +12,7 @@ export default createVuetify({
         colors: {
           primary: '#1976D2',
           secondary: '#D8D8D8',
-          accent: '#FE9800',
+          accent: '#FF6501',
           // error: '#FF5252',
           // info: '#2196F3',
           // success: '#4CAF50',

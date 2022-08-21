@@ -37,8 +37,7 @@ let recipe = props.recipe;
                     <template v-slot:activator="{ props }">
                         <div v-bind="props" class="ingr-dropdown">
                             {{ recipe.ingredients.length }} ингредиентов
-                            <v-icon icon="mdi:mdi-chevron-down" style="width: 40px; height: 40px;">
-                            </v-icon>
+                            <span class="material-icons">expand_more</span>
                         </div>
                     </template>
                     <v-card min-width="100">
@@ -156,7 +155,6 @@ let recipe = props.recipe;
 
         .ingr-dropdown {
             display: flex;
-            flex-direction: row;
             align-items: center;
             cursor: pointer;
         }

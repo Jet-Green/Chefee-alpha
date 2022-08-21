@@ -50,6 +50,19 @@ onMounted(() => {
     </v-form> -->
     <v-row class="d-flex justify-center">
         <v-col cols="12" sm="8" md="6">
+            <v-row class="d-flex d-md-none justify-space-between">
+                <v-col cols="12">
+                    <v-text-field variant="outlined" density="compact"
+                        placeholder="Поиск по ингредиентам или по названию" hide-details="auto" class="search-input">
+                        <template #append-inner>
+                            <span class="material-icons">search</span>
+                        </template>
+                    </v-text-field>
+                </v-col>
+                <v-col cols="12" class="d-flex justify-start">
+                    <v-btn color="accent" class="accent-button ml-4">Поиск по фото</v-btn>
+                </v-col>
+            </v-row>
             <v-row class="mt-6">
                 <v-col v-for="recipe in recipesToShow" cols="12">
                     <RecipeCard :recipe="recipe" />

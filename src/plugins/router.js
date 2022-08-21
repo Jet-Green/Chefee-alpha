@@ -35,10 +35,10 @@ const router = createRouter({
             component: () => import('../views/AuthPage.vue')
         }
     ],
-    // scrollBehavior(to, from, savedPosition) {
-    //     if ((to.name == 'TripsPage') || (to.name == 'TripInfoPage') || (to.name == 'CompanionsPage'))
-    //         return { top: 0 }
-    // }
+    scrollBehavior(to, from, savedPosition) {
+        if ((to.name == 'RecipePage'))
+            return { top: 0 }
+    }
 })
 
 export default router
