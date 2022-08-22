@@ -1,3 +1,19 @@
+<script setup>
+import { ref } from 'vue'
+
+import { useSearch } from './stores/search'
+
+let useSearhStore = useSearch()
+
+let searchRequest = ref('')
+
+function search() {
+  if (searchRequest.value) {
+    useSearhStore.searchRequest = searchRequest.value
+    console.log(useSearhStore.searchRequest);
+  }
+}
+</script>
 <template>
   <v-layout>
     <v-app-bar elevation="0" app>
@@ -7,12 +23,14 @@
         </v-col>
 
         <v-col class="d-none d-md-flex align-center" cols="8">
-          <v-text-field variant="outlined" density="compact" placeholder="Поиск по ингредиентам или по названию"
-            hide-details="auto" class="search-input">
-            <template #append-inner>
-              <span class="material-icons">search</span>
-            </template>
-          </v-text-field>
+          <v-form class="w-100" @submit.prevent="search">
+            <v-text-field variant="outlined" density="compact" placeholder="Поиск по ингредиентам или по названию"
+              hide-details="auto" class="search-input" v-model="searchRequest">
+              <template #append-inner>
+                <span class="material-icons" @click="search">search</span>
+              </template>
+            </v-text-field>
+          </v-form>
           <v-btn class="accent-button ml-4">Поиск по фото</v-btn>
         </v-col>
 

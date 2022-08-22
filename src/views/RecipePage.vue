@@ -158,11 +158,6 @@ onMounted(() => {
                     </v-col>
                 </v-row>
                 <v-col cols="12">
-                    <v-btn class="show-all-comments-btn" variant="text">
-                        показать все комментарии
-                    </v-btn>
-                </v-col>
-                <v-col cols="12">
                     <v-row class="d-flex justify-center">
                         <v-col cols="8" class="d-flex justify-center">
                             <v-textarea variant="outlined" placeholder="Добавьте комментарий" hide-details="auto"
