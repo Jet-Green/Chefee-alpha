@@ -59,7 +59,7 @@ let recipe = props.recipe;
         </v-row>
 
 
-        <v-row class="photo-section" @click="router.push({ name: 'RecipePage', params: recipe })">
+        <v-row class="photo-section" @click="router.push({ name: 'RecipePage', query: { id: recipe.id } })">
             <v-col>
                 <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
             </v-col>
