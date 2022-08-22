@@ -19,7 +19,10 @@ onMounted(() => {
 })
 </script>
 <template>
-    <v-row v-if="recipe" class="d-flex justify-center">
+    <div v-if="!recipe" style="min-height: 90vh; display: flex; justify-content: center; align-items: center;">
+        <v-progress-circular :size="50" color="accent" indeterminate></v-progress-circular>
+    </div>
+    <v-row v-else class="d-flex justify-center">
         <v-col cols="12" lg="8">
             <v-row>
                 <v-col cols="12">
