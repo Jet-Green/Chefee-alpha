@@ -13,7 +13,7 @@ const props = defineProps(['recipe'])
 let recipe = props.recipe;
 </script>
 <template>
-    <div class="recipe-card" @click="router.push({ name: 'RecipePage', params: recipe })">
+    <div class="recipe-card">
         <v-row class="author-section">
             <v-col>
                 <v-avatar class="avatar"></v-avatar>
@@ -59,7 +59,7 @@ let recipe = props.recipe;
         </v-row>
 
 
-        <v-row class="photo-section">
+        <v-row class="photo-section" @click="router.push({ name: 'RecipePage', params: recipe })">
             <v-col>
                 <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
             </v-col>
@@ -95,12 +95,12 @@ let recipe = props.recipe;
                         {{ recipe.firstComment.text }}
                     </v-col>
                     <v-col cols="12" class="comment-actions">
-                        <v-btn variant="text">
+                        <span class="text-btn">
                             ответить
-                        </v-btn>
-                        <v-btn variant="text">
+                        </span>
+                        <span class="text-btn mx-2">
                             поделиться
-                        </v-btn>
+                        </span>
                         <img :src="heart" height="16" />
                     </v-col>
                     <v-col cols="12">

@@ -6,17 +6,27 @@ import repost from '../../assets/icons/repost.svg'
 const props = defineProps(['rating'])
 
 let recipe = props.rating;
+
+function like() {
+    console.log('like');
+}
+function goToComments() {
+    console.log('go to recipepage  comments');
+}
+function share() {
+    console.log('share');
+}
 </script>
 <template>
     <div class="d-flex align-center">
         <!-- onclick by rating-item -->
-        <div class="rating-item ml-0">
+        <div class="rating-item ml-0" @click="like">
             <img :src="heart" height="24" class="mr-1" /> {{ recipe.likes }}
         </div>
-        <div class="rating-item">
+        <div class="rating-item" @click="goToComments">
             <img :src="comments" height="24" class="mr-1" /> {{ recipe.comments }}
         </div>
-        <div class="rating-item">
+        <div class="rating-item" @click="share">
             <img :src="repost" height="24" class="mr-1" /> {{ recipe.reposts }}
         </div>
     </div>
