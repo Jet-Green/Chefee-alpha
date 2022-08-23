@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useSearch } from '../stores/search'
-import axios from 'axios'
 
 import RecipeCard from '../components/cards/RecipeCard.vue'
 
@@ -9,40 +8,23 @@ let useSearhStore = useSearch()
 
 let searchRequest = ref('')
 
-
-let recipes = ref([])
 let recipesToShow = ref([])
-
-// function includesIngr(ingrs) {
-//     for (let ingr of ingrs) {
-//         if (ingr.toLowerCase().includes(request.value.toLowerCase())) return true
-//     }
-//     return false
-// }
-
-// function submit() {
-//     recipesToShow.value = []
-//     for (let r of recipes.value) {
-//         if (r.title.toLowerCase().includes(request.value.toLowerCase()) || includesIngr(r.ingridients)) {
-//             recipesToShow.value.push(r)
-//         }
-//     }
-// }
 
 function search() {
     if (searchRequest.value) {
         useSearhStore.searchRequest = searchRequest.value
-        console.log('dfgdfg');
-        // console.log(useSearhStore.searchRequest);
+        useSearhStore.fetchReipesByStrSearch()
     }
 }
+
+useSearhStore.$subscribe((mutation, state) => {
+    if (mutation.events.key === 'recipesToShow') {
+        recipesToShow.value = mutation.events.newValue
+    }
+})
+
 onMounted(() => {
-    axios.get('http://localhost:3300/recipes/get-all')
-        .then((res) => {
-            recipes.value = res.data;
-            recipesToShow.value = recipes.value;
-        })
-        .catch((err) => console.error(err))
+    useSearhStore.fetchAllRecipes()
 })
 </script>
 <template>

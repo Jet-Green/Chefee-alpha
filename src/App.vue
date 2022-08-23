@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 
 import { useSearch } from './stores/search'
-
 let useSearhStore = useSearch()
 
 let searchRequest = ref('')
@@ -10,9 +9,10 @@ let searchRequest = ref('')
 function search() {
   if (searchRequest.value) {
     useSearhStore.searchRequest = searchRequest.value
-    console.log(useSearhStore.searchRequest);
+    useSearhStore.fetchReipesByStrSearch()
   }
 }
+
 </script>
 <template>
   <v-layout>

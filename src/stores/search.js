@@ -1,19 +1,27 @@
+import axios from 'axios'
 import { defineStore } from 'pinia'
-import { axios } from 'axios'
 
 export const useSearch = defineStore('data', {
     state: () => ({
         searchRequest: '',
+        recipesToShow: []
     }),
     getters: {
-        getSearched(state) {
-            axios.get(`http://loacalhost:3300/recipes?request=${state.searchRequest}`)
-                .then((res) => {
-                    console.log(res.data);
-                })
-            return 'nothing'
-        }
     },
     actions: {
+        async fetchAllRecipes() {
+            axios.get('http://localhost:3300/recipes/get-all')
+                .then((res) => {
+                    this.recipesToShow = res.data
+                })
+                .catch((err) => console.error(err))
+        },
+        async fetchReipesByStrSearch() {
+            axios.get(`http://localhost:3300/recipes/get-by-str-request?request=${this.searchRequest}`)
+                .then((res) => {
+                    this.recipesToShow = res.data;
+                })
+                .catch((err) => console.error(err))
+        }
     },
 })
