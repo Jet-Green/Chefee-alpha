@@ -4,27 +4,37 @@ import { useSearch } from '../stores/search'
 
 import RecipeCard from '../components/cards/RecipeCard.vue'
 
-let useSearhStore = useSearch()
+let useSearchStore = useSearch()
 
 let searchRequest = ref('')
+let requestsHistory = ref([])
 
 let recipesToShow = ref([])
 
 function search() {
     if (searchRequest.value) {
-        useSearhStore.searchRequest = searchRequest.value
-        useSearhStore.fetchReipesByStrSearch()
+        useSearchStore.searchRequest = searchRequest.value
+        useSearchStore.fetchReipesByStrSearch();
+        // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
+        useSearchStore.addRequestsHistory(searchRequest.value)
     }
 }
 
-useSearhStore.$subscribe((mutation, state) => {
+useSearchStore.$subscribe((mutation, state) => {
     if (mutation.events.key === 'recipesToShow') {
-        recipesToShow.value = mutation.events.newValue
+        // console.log(mutation);
+        let newRecipes = mutation.events.newValue;
+        recipesToShow.value = newRecipes;
+        // requestsHistory.value = state.requestsHistory;
+    }
+    // TODO. Это глупо, потому что может быть другая мутация add 
+    if (mutation.events.type === 'add') {
+        requestsHistory.value = state.requestsHistory;
     }
 })
 
 onMounted(() => {
-    useSearhStore.fetchAllRecipes()
+    useSearchStore.fetchAllRecipes()
 })
 </script>
 <template>
@@ -44,6 +54,11 @@ onMounted(() => {
                 </v-col>
                 <v-col cols="12">
                     <v-btn class="accent-button">Поиск по фото</v-btn>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col v-for="request of requestsHistory">
+                    <v-chip color="accent">{{ request }}</v-chip>
                 </v-col>
             </v-row>
             <v-row class="mt-6">

@@ -2,14 +2,16 @@
 import { ref } from 'vue'
 
 import { useSearch } from './stores/search'
-let useSearhStore = useSearch()
+let useSearchStore = useSearch()
 
 let searchRequest = ref('')
 
 function search() {
   if (searchRequest.value) {
-    useSearhStore.searchRequest = searchRequest.value
-    useSearhStore.fetchReipesByStrSearch()
+    useSearchStore.searchRequest = searchRequest.value
+    useSearchStore.fetchReipesByStrSearch();
+    // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
+    useSearchStore.addRequestsHistory(searchRequest.value)
   }
 }
 
