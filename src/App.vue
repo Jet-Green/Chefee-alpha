@@ -9,9 +9,8 @@ let searchRequest = ref('')
 function search() {
   if (searchRequest.value) {
     useSearchStore.searchRequest = searchRequest.value
+    // Вызывается action addREquestHistory, ищется searchRequest.value в ингрединетах и добавляется в историю запросов
     useSearchStore.fetchReipesByStrSearch();
-    // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
-    useSearchStore.addRequestsHistory(searchRequest.value)
   }
 }
 

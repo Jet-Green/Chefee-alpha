@@ -16,7 +16,9 @@ function search() {
         useSearchStore.searchRequest = searchRequest.value
         useSearchStore.fetchReipesByStrSearch();
         // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
-        useSearchStore.addRequestsHistory(searchRequest.value)
+        // console.log(searchRequest.value);
+        // useSearchStore.addRequestsHistory(searchRequest.value)
+        // console.log(useSearchStore.requestsHistory);
     }
 }
 
@@ -27,10 +29,9 @@ useSearchStore.$subscribe((mutation, state) => {
         recipesToShow.value = newRecipes;
         // requestsHistory.value = state.requestsHistory;
     }
-    // TODO. Это глупо, потому что может быть другая мутация add 
-    if (mutation.events.type === 'add') {
-        requestsHistory.value = state.requestsHistory;
-    }
+
+    // TODO. 
+    requestsHistory.value = state.requestsHistory;
 })
 
 onMounted(() => {

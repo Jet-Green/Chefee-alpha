@@ -46,11 +46,15 @@ export const useSearch = defineStore('data', {
             }
             this.requestsHistory.push(...allIngrs);
         },
+        removeReq(request) {
+
+        },
         async fetchReipesByStrSearch() {
             let searchRequest = this.searchRequest;
             axios.get(`http://localhost:3300/recipes/get-by-str-request?request=${searchRequest}`)
                 .then((res) => {
                     this.recipesToShow = res.data;
+                    this.addRequestsHistory(searchRequest)
                 })
                 .catch((err) => console.error(err))
         }
