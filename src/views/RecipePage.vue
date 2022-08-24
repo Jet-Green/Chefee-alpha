@@ -46,7 +46,7 @@ onMounted(() => {
 
             <v-row class="slider">
                 <v-col>
-                    <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
+                    <v-img :src="recipe.previewImage"></v-img>
                 </v-col>
             </v-row>
 
@@ -87,33 +87,21 @@ onMounted(() => {
                 <v-col cols="12">
                     <h3>Инструкция приготовления</h3>
                 </v-col>
-                <v-col cols="12">
-                    <v-row>
+                <v-col v-for="(step, index) of recipe.steps" cols="12">
+                    <v-row v-if="index % 2 == 0">
                         <v-col cols="6">
-                            <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
+                            <v-img :src="step.image"></v-img>
                         </v-col>
                         <v-col cols="6">
-
-                        </v-col>
-                    </v-row>
-                </v-col>
-                <v-col cols="12">
-                    <v-row>
-                        <v-col cols="6">
-
-                        </v-col>
-                        <v-col cols="6">
-                            <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
+                            {{ step.description }}
                         </v-col>
                     </v-row>
-                </v-col>
-                <v-col cols="12">
-                    <v-row>
+                    <v-row v-else>
                         <v-col cols="6">
-                            <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
+                            {{ step.description }}
                         </v-col>
                         <v-col cols="6">
-
+                            <v-img :src="step.image"></v-img>
                         </v-col>
                     </v-row>
                 </v-col>

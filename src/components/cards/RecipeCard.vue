@@ -61,7 +61,7 @@ let recipe = props.recipe;
 
         <v-row class="photo-section" @click="router.push({ name: 'RecipePage', query: { id: recipe.id } })">
             <v-col>
-                <v-img src="https://www.gastronom.ru/binfiles/images/20200227/b4a40816.jpg"></v-img>
+                <v-img :src="recipe.previewImage"></v-img>
             </v-col>
         </v-row>
 
@@ -103,7 +103,7 @@ let recipe = props.recipe;
                         </span>
                         <img :src="heart" height="16" />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="pb-0">
                         <v-btn class="comment-show-all" variant="text">
                             показать все комментарии
                         </v-btn>
@@ -113,7 +113,7 @@ let recipe = props.recipe;
         </v-row>
 
 
-        <v-divider color="secondary"></v-divider>
+        <!-- <v-divider color="secondary"></v-divider>
 
 
         <v-row class="add-comment-section">
@@ -124,7 +124,7 @@ let recipe = props.recipe;
             <v-col cols="1" class="d-flex justify-end align-center">
                 <img :src="arrowRight" height="24" />
             </v-col>
-        </v-row>
+        </v-row> -->
     </div>
 </template>
 <style scoped lang="scss">
