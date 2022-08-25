@@ -5,12 +5,13 @@ import Rating from '../recipe/Rating.vue'
 import HealthIndex from '../recipe/HealthIndex.vue'
 
 import heart from '../../assets/icons/heart.svg'
-import arrowRight from '../../assets/icons/arrow-circle-right.svg'
+// import arrowRight from '../../assets/icons/arrow-circle-right.svg'
 
 const router = useRouter();
 const props = defineProps(['recipe'])
-
 let recipe = props.recipe;
+let h = recipe.health
+const HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
 </script>
 <template>
     <div class="recipe-card">
@@ -71,7 +72,7 @@ let recipe = props.recipe;
                 <Rating :rating="{ likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts }" />
             </v-col>
             <v-col>
-                <HealthIndex :healthIndex="recipe.healthIndex" />
+                <HealthIndex :healthIndex="HI" />
             </v-col>
         </v-row>
 

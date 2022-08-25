@@ -10,11 +10,14 @@ import Rating from '../components/recipe/Rating.vue'
 const route = useRoute()
 
 let recipe = ref(null)
+let HI = ref(null)
 
 onMounted(() => {
     let id = route.query.id;
     axios.get(`http://localhost:3300/recipes/get?id=${id}`).then((res) => {
         recipe.value = res.data
+        let h = recipe.value.health
+        HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
     })
 })
 </script>
@@ -36,7 +39,7 @@ onMounted(() => {
                     Время приготовления {{ recipe.time }}
                 </v-col>
                 <v-col class="d-flex justify-center" cols="4">
-                    <HealthIndex :healthIndex="recipe.healthIndex" />
+                    <HealthIndex :healthIndex="HI" />
                 </v-col>
                 <v-col class="d-flex align-center justify-end" cols="4">
                     <Rating :rating="{ likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts }" />
