@@ -5,7 +5,8 @@ export const useSearch = defineStore('data', {
     state: () => ({
         searchRequest: '',
         requestsHistory: [],
-        recipesToShow: []
+        recipesToShow: [],
+        fetchedRecipes: []
     }),
     getters: {
     },
@@ -13,6 +14,8 @@ export const useSearch = defineStore('data', {
         async fetchAllRecipes() {
             axios.get('http://localhost:3300/recipes/get-all')
                 .then((res) => {
+                    // console.log(JSON.parse(res.data));
+                    this.fetchedRecipes = res.data
                     this.recipesToShow = res.data
                 })
                 .catch((err) => console.error(err))
@@ -22,24 +25,24 @@ export const useSearch = defineStore('data', {
             // пока ищется только из тех, которые пришли с get all
             for (let recipe of this.recipesToShow) {
                 for (let ingr of recipe.ingredients) {
-                    if (ingr.toLowerCase().includes(request.toLowerCase())) {
+                    if (ingr.name.toLowerCase().includes(request.toLowerCase())) {
                         // если ингредиент уже есть в history, то не добавляем
                         if (this.requestsHistory.length > 0 || allIngrs.length > 0) {
                             let isPresent = false;
-                            for (let hI of this.requestsHistory) {
-                                if (ingr == hI) {
+                            for (let hIngr of this.requestsHistory) {
+                                if (ingr.name == hIngr.name) {
                                     isPresent = true;
                                 }
                             }
                             for (let curIngr of allIngrs) {
-                                if (ingr == curIngr) {
+                                if (ingr.name == curIngr.name) {
                                     isPresent = true;
                                 }
                             }
                             if (!isPresent)
-                                allIngrs.push(ingr)
+                                allIngrs.push({ name: ingr.name, youHave: true })
                         } else {
-                            allIngrs.push(ingr)
+                            allIngrs.push({ name: ingr.name, youHave: true })
                         }
                     }
                 }
@@ -53,8 +56,19 @@ export const useSearch = defineStore('data', {
             let searchRequest = this.searchRequest;
             axios.get(`http://localhost:3300/recipes/get-by-str-request?request=${searchRequest}`)
                 .then((res) => {
-                    this.recipesToShow = res.data;
+                    let data = res.data
                     this.addRequestsHistory(searchRequest)
+                    for (let recipeI = 0; recipeI < data.length; recipeI++) {
+                        for (let ingrI = 0; ingrI < data[recipeI].ingredients.length; ingrI++) {
+                            for (let request of this.requestsHistory) {
+                                if (data[recipeI].ingredients[ingrI].name == request.name) {
+                                    data[recipeI].ingredients[ingrI].youHave = true;
+                                }
+                            }
+                        }
+                    }
+                    console.log(data);
+                    this.recipesToShow = data;
                 })
                 .catch((err) => console.error(err))
         }

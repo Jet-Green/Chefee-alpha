@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useSearch } from '../stores/search'
 import axios from 'axios'
 
 import HealthIndex from '../components/recipe/HealthIndex.vue'
@@ -8,17 +9,35 @@ import heart from '../assets/icons/heart.svg'
 import Rating from '../components/recipe/Rating.vue'
 
 const route = useRoute()
+const searchStore = useSearch()
 
 let recipe = ref(null)
 let HI = ref(null)
-
-onMounted(() => {
+onMounted(async () => {
     let id = route.query.id;
-    axios.get(`http://localhost:3300/recipes/get?id=${id}`).then((res) => {
+    if (searchStore.fetchedRecipes.length) {
+        for (let fetchedRecipe of searchStore.fetchedRecipes) {
+            if (fetchedRecipe.id != id) {
+                let res = await axios.get(`http://localhost:3300/recipes/get?id=${id}`)
+
+                recipe.value = res.data
+                let h = recipe.value.health
+                HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
+            } else {
+                recipe.value = fetchedRecipe
+                let h = recipe.value.health
+                HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
+            }
+        }
+    } else {
+        let res = await axios.get(`http://localhost:3300/recipes/get?id=${id}`)
+
         recipe.value = res.data
         let h = recipe.value.health
         HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
-    })
+    }
+
+
 })
 </script>
 <template>
@@ -77,7 +96,7 @@ onMounted(() => {
                         <v-col>
                             <v-list>
                                 <v-list-item v-for="ingr in recipe.ingredients">
-                                    {{ ingr }}
+                                    {{ ingr.name }} {{ ingr.amount }}
                                     <v-divider color="secondary"></v-divider>
                                 </v-list-item>
                             </v-list>

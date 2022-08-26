@@ -24,8 +24,7 @@ function search() {
 
 useSearchStore.$subscribe((mutation, state) => {
     if (mutation.events.key === 'recipesToShow') {
-        // console.log(mutation);
-        let newRecipes = mutation.events.newValue;
+        let newRecipes = state.recipesToShow;
         recipesToShow.value = newRecipes;
         // requestsHistory.value = state.requestsHistory;
     }
@@ -58,15 +57,18 @@ onMounted(() => {
                 </v-col>
             </v-row>
             <v-row>
-                <v-col v-for="request of requestsHistory">
-                    <v-chip color="accent">{{ request }}</v-chip>
+                <v-col v-for="ingredient of requestsHistory">
+                    <v-chip color="accent">{{ ingredient.name }}</v-chip>
                 </v-col>
             </v-row>
             <v-row class="mt-6">
                 <v-col v-for="recipe in recipesToShow" cols="12">
-                    <RecipeCard :recipe="recipe" />
+                    <RecipeCard :id="recipe.id" />
                 </v-col>
             </v-row>
         </v-col>
     </v-row>
 </template>
+<!-- 
+
+ -->

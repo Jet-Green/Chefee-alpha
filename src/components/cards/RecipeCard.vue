@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { useSearch } from '../../stores/search'
 
 import Rating from '../recipe/Rating.vue'
 import HealthIndex from '../recipe/HealthIndex.vue'
@@ -8,10 +9,14 @@ import heart from '../../assets/icons/heart.svg'
 // import arrowRight from '../../assets/icons/arrow-circle-right.svg'
 
 const router = useRouter();
-const props = defineProps(['recipe'])
-let recipe = props.recipe;
+const useSearchStore = useSearch();
+const props = defineProps(['id'])
+
+let id = props.id
+let recipe = useSearchStore.recipesToShow.find((r) => r.id == id)
+// нельзя делать рективность, потому что передаём через пропсы
 let h = recipe.health
-const HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
+let HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
 </script>
 <template>
     <div class="recipe-card">
@@ -37,14 +42,20 @@ const HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates
                 <v-menu :close-on-content-click="false" location="end">
                     <template v-slot:activator="{ props }">
                         <div v-bind="props" class="ingr-dropdown">
-                            {{ recipe.ingredients.length }} ингредиентов
+                            <div v-if="!useSearchStore.requestsHistory.length">
+                                {{ recipe.ingredients.length }} ингредиентов
+                            </div>
+                            <div v-else>
+                                Есть {{ useSearchStore.requestsHistory.length }} из {{ recipe.ingredients.length }}
+                                ингредиентов
+                            </div>
                             <span class="material-icons">expand_more</span>
                         </div>
                     </template>
                     <v-card min-width="100">
                         <v-list>
                             <v-list-item v-for="ingr of recipe.ingredients">
-                                {{ ingr }}
+                                {{ ingr.name }}
                                 <v-divider></v-divider>
                             </v-list-item>
                         </v-list>
@@ -60,7 +71,8 @@ const HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates
         </v-row>
 
 
-        <v-row class="photo-section" @click="router.push({ name: 'RecipePage', query: { id: recipe.id } })">
+        <v-row class="photo-section"
+            @click="router.push({ name: 'RecipePage', query: { id: recipe.id }, params: { recipe } })">
             <v-col>
                 <v-img :src="recipe.previewImage"></v-img>
             </v-col>
