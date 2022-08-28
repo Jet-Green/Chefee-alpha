@@ -28,16 +28,12 @@ const router = createRouter({
             path: '/reg',
             name: 'RegistrationPage',
             component: () => import('../views/RegistrationPage.vue')
-        },
-        {
-            path: '/auth',
-            name: 'AuthPage',
-            component: () => import('../views/AuthPage.vue')
         }
     ],
     scrollBehavior(to, from, savedPosition) {
         if ((to.name == 'RecipePage'))
             return { top: 0 }
+        return savedPosition;
     }
 })
 
