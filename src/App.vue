@@ -40,14 +40,7 @@ function openRegistrationDialog() {
 function registration() {
     userStore.registration(registrationEmail.value, registrationPassword.value)
 }
-async function getUsers() {
-    try {
-        const response = await UserService.fetchUsers()
-        console.log(response);
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 
 onMounted(() => {
     if (localStorage.getItem('token')) {
@@ -77,10 +70,11 @@ onMounted(() => {
                 </v-col>
 
                 <v-col class="d-lg-flex d-none align-center justify-end" cols="2">
-                    <v-btn @click="userStore.logout">
+                    <v-btn v-if="userStore.isAuth" @click="userStore.logout">
                         выйти
                     </v-btn>
-                    <div v-if="!userStore.isAuth">
+
+                    <div v-else>
                         <v-btn @click="openLoginDialog">
                             войти
                         </v-btn>
@@ -149,9 +143,8 @@ onMounted(() => {
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
-
                     </div>
-                    <v-btn @click="getUsers">get</v-btn>
+
                 </v-col>
                 <v-col class="d-lg-none d-flex justify-end" cols="2">
                     <span class="material-icons ma-3">menu</span>
