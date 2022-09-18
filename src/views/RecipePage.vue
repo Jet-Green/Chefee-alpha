@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useSearch } from '../stores/search'
+import { useRecipes } from '../stores/recipes'
 import axios from 'axios'
 
 import HealthIndex from '../components/recipe/HealthIndex.vue'
@@ -9,14 +9,14 @@ import heart from '../assets/icons/heart.svg'
 import Rating from '../components/recipe/Rating.vue'
 
 const route = useRoute()
-const searchStore = useSearch()
+const recipeStore = useRecipes()
 
 let recipe = ref(null)
 let HI = ref(null)
 onMounted(async () => {
     let id = route.query.id;
-    if (searchStore.fetchedRecipes.length) {
-        for (let fetchedRecipe of searchStore.fetchedRecipes) {
+    if (recipeStore.fetchedRecipes.length) {
+        for (let fetchedRecipe of recipeStore.fetchedRecipes) {
             if (fetchedRecipe.id != id) {
                 let res = await axios.get(`http://localhost:3300/recipes/get?id=${id}`)
 

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 import RecipesService from '../services/RecipesService'
 
-export const useSearch = defineStore('search', {
+export const useRecipes = defineStore('recipes', {
     state: () => ({
         searchRequest: '',
         requestsHistory: [],
@@ -18,6 +18,7 @@ export const useSearch = defineStore('search', {
                     // console.log(JSON.parse(res.data));
                     this.fetchedRecipes = res.data
                     this.recipesToShow = res.data
+                    console.log(res);
                 })
                 .catch((err) => console.error(err))
         },

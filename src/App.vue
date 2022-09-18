@@ -3,10 +3,10 @@ import { ref, onMounted } from 'vue'
 
 import UserService from './services/UserService';
 
-import { useSearch } from './stores/search'
+import { useRecipes } from './stores/recipes'
 import { useUser } from './stores/userStore'
 
-let searchStore = useSearch()
+let useRecipesStore = useRecipes()
 let userStore = useUser()
 
 let searchRequest = ref('')
@@ -19,9 +19,9 @@ let registrationPassword = ref('')
 
 function search() {
     if (searchRequest.value) {
-        searchStore.searchRequest = searchRequest.value
+        useRecipesStore.searchRequest = searchRequest.value
         // Вызывается action addREquestHistory, ищется searchRequest.value в ингрединетах и добавляется в историю запросов
-        searchStore.fetchReipesByStrSearch();
+        useRecipesStore.fetchReipesByStrSearch();
     }
 }
 

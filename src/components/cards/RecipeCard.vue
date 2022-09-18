@@ -1,6 +1,7 @@
 <script setup>
+import { onMounted, computed } from "vue"
 import { useRouter } from 'vue-router'
-import { useSearch } from '../../stores/search'
+import { useRecipes } from '../../stores/recipes'
 
 import Rating from '../recipe/Rating.vue'
 import HealthIndex from '../recipe/HealthIndex.vue'
@@ -9,14 +10,20 @@ import heart from '../../assets/icons/heart.svg'
 // import arrowRight from '../../assets/icons/arrow-circle-right.svg'
 
 const router = useRouter();
-const useSearchStore = useSearch();
+const useRecipesStore = useRecipes();
 const props = defineProps(['id'])
 
 let id = props.id
-let recipe = useSearchStore.recipesToShow.find((r) => r.id == id)
+let recipe = computed(() => useRecipesStore.recipesToShow.find((r) => r.id == id))
 // нельзя делать рективность, потому что передаём через пропсы
-let h = recipe.health
-let HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
+
+let HI = computed(() =>
+    ((recipe.value.health.protein / 61.25) * 2.5 +
+        (recipe.value.health.fat / 61.25) * 2.5 +
+        (recipe.value.health.carbohydrates / 61.25) * 2.5 +
+        (recipe.value.health.kcal / 700) * 2.5)
+        .toFixed(1)
+)
 </script>
 <template>
     <div class="recipe-card">
@@ -42,11 +49,11 @@ let HI = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates /
                 <v-menu :close-on-content-click="false" location="end">
                     <template v-slot:activator="{ props }">
                         <div v-bind="props" class="ingr-dropdown">
-                            <div v-if="!useSearchStore.requestsHistory.length">
+                            <div v-if="!useRecipesStore.requestsHistory.length">
                                 {{ recipe.ingredients.length }} ингредиентов
                             </div>
                             <div v-else>
-                                Есть {{ useSearchStore.requestsHistory.length }} из {{ recipe.ingredients.length }}
+                                Есть {{ useRecipesStore.requestsHistory.length }} из {{ recipe.ingredients.length }}
                                 ингредиентов
                             </div>
                             <span class="material-icons">expand_more</span>

@@ -1,14 +1,18 @@
 <script setup>
+import { ref } from "vue"
 import heart from '../../assets/icons/heart.svg'
 import comments from '../../assets/icons/comments.svg'
 import repost from '../../assets/icons/repost.svg'
 
 const props = defineProps(['rating'])
 
+
 let recipe = props.rating;
+let liked = ref(false)
 
 function like() {
-    console.log('like');
+    liked.value = !liked.value;
+    console.log(liked.value);
 }
 function goToComments() {
     console.log('go to recipepage  comments');
@@ -23,9 +27,9 @@ function share() {
         <div class="rating-item ml-0" @click="like">
             <img :src="heart" height="24" class="mr-1" /> {{ recipe.likes }}
         </div>
-        <div class="rating-item" @click="goToComments">
+        <!-- <div class="rating-item" @click="goToComments">
             <img :src="comments" height="24" class="mr-1" /> {{ recipe.comments }}
-        </div>
+        </div> -->
         <div class="rating-item" @click="share">
             <img :src="repost" height="24" class="mr-1" /> {{ recipe.reposts }}
         </div>

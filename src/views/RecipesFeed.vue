@@ -1,20 +1,20 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useSearch } from '../stores/search'
+import { ref, onMounted, computed } from 'vue'
+import { useRecipes } from '../stores/recipes'
 
 import RecipeCard from '../components/cards/RecipeCard.vue'
 
-let useSearchStore = useSearch()
+let useRecipesStore = useRecipes()
 
 let searchRequest = ref('')
 let requestsHistory = ref([])
 
-let recipesToShow = ref([])
+let recipesToShow = computed(() => useRecipesStore.recipesToShow)
 
 function search() {
     if (searchRequest.value) {
-        useSearchStore.searchRequest = searchRequest.value
-        useSearchStore.fetchReipesByStrSearch();
+        useRecipesStore.searchRequest = searchRequest.value
+        useRecipesStore.fetchReipesByStrSearch();
         // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
         // console.log(searchRequest.value);
         // useSearchStore.addRequestsHistory(searchRequest.value)
@@ -22,19 +22,19 @@ function search() {
     }
 }
 
-useSearchStore.$subscribe((mutation, state) => {
-    if (mutation.events.key === 'recipesToShow') {
-        let newRecipes = state.recipesToShow;
-        recipesToShow.value = newRecipes;
-        // requestsHistory.value = state.requestsHistory;
-    }
+// useRecipesStore.$subscribe((mutation, state) => {
+//     if (mutation.events.key === 'recipesToShow') {
+//         let newRecipes = state.recipesToShow;
+//         recipesToShow.value = newRecipes;
+//         // requestsHistory.value = state.requestsHistory;
+//     }
 
-    // TODO. 
-    requestsHistory.value = state.requestsHistory;
-})
+//     // TODO. 
+//     requestsHistory.value = state.requestsHistory;
+// })
 
 onMounted(() => {
-    useSearchStore.fetchAllRecipes()
+    useRecipesStore.fetchAllRecipes()
 })
 </script>
 <template>
