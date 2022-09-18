@@ -14,8 +14,8 @@ const useRecipesStore = useRecipes();
 const props = defineProps(['id'])
 
 let id = props.id
-let recipe = computed(() => useRecipesStore.recipesToShow.find((r) => r.id == id))
-// нельзя делать рективность, потому что передаём через пропсы
+let recipe = computed(() => useRecipesStore.getRecipeById(id))
+
 
 let HI = computed(() =>
     ((recipe.value.health.protein / 61.25) * 2.5 +
@@ -88,7 +88,7 @@ let HI = computed(() =>
 
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
-                <Rating :rating="{ likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts }" />
+                <Rating :id="id" />
             </v-col>
             <v-col>
                 <HealthIndex :healthIndex="HI" />

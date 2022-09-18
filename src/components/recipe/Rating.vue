@@ -1,18 +1,26 @@
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
+
+import { useRecipes } from "../../stores/recipes"
+
 import heart from '../../assets/icons/heart.svg'
 import comments from '../../assets/icons/comments.svg'
 import repost from '../../assets/icons/repost.svg'
 
-const props = defineProps(['rating'])
+const props = defineProps(['id'])
+
+const id = props.id;
+
+let recipesStrore = useRecipes()
 
 
-let recipe = props.rating;
+let recipe = computed(() => recipesStrore.getRecipeById(id))
 let liked = ref(false)
 
 function like() {
     liked.value = !liked.value;
-    console.log(liked.value);
+
+    recipesStrore.likeRecipe(liked.value, id)
 }
 function goToComments() {
     console.log('go to recipepage  comments');

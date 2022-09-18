@@ -10,8 +10,12 @@ export const useRecipes = defineStore('recipes', {
         fetchedRecipes: []
     }),
     getters: {
+
     },
     actions: {
+        getRecipeById(id) {
+            return this.recipesToShow.find((r) => r.id == id)
+        },
         async fetchAllRecipes() {
             RecipesService.getAll()
                 .then((res) => {
@@ -73,6 +77,18 @@ export const useRecipes = defineStore('recipes', {
                     this.recipesToShow = data;
                 })
                 .catch((err) => console.error(err))
+        },
+        async likeRecipe(value, id) {
+            // RecipesService.likeRecipe(id)
+            let found = this.recipesToShow.find(recipe => recipe.id == id)
+            found.isLiked = value;
+
+            if (value)
+                found.likes++;
+            else found.likes--;
+
+            console.log(found.id, found.likes, found.isLiked);
+
         }
     },
 })
