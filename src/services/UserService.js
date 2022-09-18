@@ -1,7 +1,7 @@
 import $api from "../plugins/axios";
 
-export default class UserService {
-    static fetchUsers() {
+export default {
+    fetchUsers() {
         return $api.get('/users')
     }
 }
