@@ -130,7 +130,7 @@ onMounted(async () => {
             </v-row>
 
 
-            <v-row class="comments">
+            <!-- <v-row class="comments">
                 <v-col>
                     <h3>Комментарии</h3>
                 </v-col>
@@ -178,7 +178,7 @@ onMounted(async () => {
                         </v-col>
                     </v-row>
                 </v-col>
-            </v-row>
+            </v-row> -->
         </v-col>
     </v-row>
 </template>

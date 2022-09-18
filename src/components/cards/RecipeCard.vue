@@ -96,10 +96,10 @@ let HI = computed(() =>
         </v-row>
 
 
-        <v-divider color="secondary"></v-divider>
+        <!-- <v-divider color="secondary"></v-divider> -->
 
 
-        <v-row class="comments-section">
+        <!-- <v-row class="comments-section">
             <v-col cols="12">
                 <v-row class="comment">
                     <v-col cols="12" class="comment-author">
@@ -130,7 +130,7 @@ let HI = computed(() =>
                     </v-col>
                 </v-row>
             </v-col>
-        </v-row>
+        </v-row> -->
 
 
         <!-- <v-divider color="secondary"></v-divider>
