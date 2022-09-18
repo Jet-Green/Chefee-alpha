@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
+import RecipesService from '../services/RecipesService'
 
 export const useSearch = defineStore('search', {
     state: () => ({
@@ -12,7 +13,7 @@ export const useSearch = defineStore('search', {
     },
     actions: {
         async fetchAllRecipes() {
-            axios.get('http://localhost:3300/recipes/get-all')
+            RecipesService.getAll()
                 .then((res) => {
                     // console.log(JSON.parse(res.data));
                     this.fetchedRecipes = res.data
