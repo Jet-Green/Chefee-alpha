@@ -14,7 +14,9 @@ const useRecipesStore = useRecipes();
 const props = defineProps(['id'])
 
 let id = props.id
-let recipe = computed(() => useRecipesStore.getRecipeById(id))
+let recipe = computed(() =>
+    useRecipesStore.recipesToShow.find((r) => r.id == id)
+)
 
 
 let HI = computed(() =>
@@ -88,7 +90,7 @@ let HI = computed(() =>
 
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
-                <Rating :id="id" />
+                <Rating :id="id" :rating="{likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts}" />
             </v-col>
             <v-col>
                 <HealthIndex :healthIndex="HI" />

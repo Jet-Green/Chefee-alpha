@@ -8,44 +8,47 @@ import heartActive from '../../assets/icons/heart-active.svg'
 import comments from '../../assets/icons/comments.svg'
 import repost from '../../assets/icons/repost.svg'
 
-const props = defineProps(['id'])
+const props = defineProps(['id', 'rating'])
+
+const recipesStore = useRecipes()
 
 const id = props.id;
 
-let recipesStrore = useRecipes()
+let rating = props.rating
 
-
-let recipe = computed(() => recipesStrore.getRecipeById(id))
 let liked = ref(false)
-
-
 let currentHeart = ref(heart)
 function like() {
     liked.value = !liked.value;
 
-    if (liked.value) currentHeart.value = heartActive;
-    else currentHeart.value = heart;
-
-    recipesStrore.likeRecipe(liked.value, id)
+    if (liked.value) {
+        currentHeart.value = heartActive;
+        rating.likes++;
+    }
+    else {
+        currentHeart.value = heart;
+        rating.likes--;
+    }
+    recipesStore.likeRecipe(liked.value, id)
 }
-function goToComments() {
-    console.log('go to recipepage  comments');
-}
+// function goToComments() {
+//     console.log('go to recipepage  comments');
+// }
 function share() {
     console.log('share');
 }
 </script>
 <template>
-    <div class="d-flex align-center">
+    <div class="d-flex align-center" v-if="rating">
         <!-- onclick by rating-item -->
         <div class="rating-item ml-0" @click="like">
-            <img :src="currentHeart" height="24" class="mr-1" :class="{ liked: liked }" /> {{ recipe.likes }}
+            <img :src="currentHeart" height="24" class="mr-1" :class="{ liked: liked }" /> {{ rating.likes }}
         </div>
         <!-- <div class="rating-item" @click="goToComments">
-            <img :src="comments" height="24" class="mr-1" /> {{ recipe.comments }}
+            <img :src="comments" height="24" class="mr-1" /> {{ rating.comments }}
         </div> -->
         <div class="rating-item" @click="share">
-            <img :src="repost" height="24" class="mr-1" /> {{ recipe.reposts }}
+            <img :src="repost" height="24" class="mr-1" /> {{ rating.reposts }}
         </div>
     </div>
 </template>

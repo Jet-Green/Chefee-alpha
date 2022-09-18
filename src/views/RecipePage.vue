@@ -1,47 +1,34 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRecipes } from '../stores/recipes'
 import axios from 'axios'
 
 import HealthIndex from '../components/recipe/HealthIndex.vue'
-import heart from '../assets/icons/heart.svg'
 import Rating from '../components/recipe/Rating.vue'
 
 const route = useRoute()
-const recipeStore = useRecipes()
+const recipesStore = useRecipes()
 
-let recipe = ref(null)
-let HI = ref(null)
-onMounted(async () => {
-    let id = route.query.id;
-    if (recipeStore.fetchedRecipes.length) {
-        for (let fetchedRecipe of recipeStore.fetchedRecipes) {
-            if (fetchedRecipe.id != id) {
-                let res = await axios.get(`http://localhost:3300/recipes/get?id=${id}`)
+let id = route.query.id;
 
-                recipe.value = res.data
-                let h = recipe.value.health
-                HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
-            } else {
-                recipe.value = fetchedRecipe
-                let h = recipe.value.health
-                HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
-            }
-        }
-    } else {
-        let res = await axios.get(`http://localhost:3300/recipes/get?id=${id}`)
+let recipe = computed(() => recipesStore.currentRecipe)
 
-        recipe.value = res.data
-        let h = recipe.value.health
-        HI.value = ((h.protein / 61.25) * 2.5 + (h.fat / 61.25) * 2.5 + (h.carbohydrates / 61.25) * 2.5 + (h.kcal / 700) * 2.5).toFixed(1)
-    }
+let HI = computed(() =>
+    ((recipe.value.health.protein / 61.25) * 2.5 +
+        (recipe.value.health.fat / 61.25) * 2.5 +
+        (recipe.value.health.carbohydrates / 61.25) * 2.5 +
+        (recipe.value.health.kcal / 700) * 2.5)
+        .toFixed(1)
+)
 
-
+onMounted(() => {
+    recipesStore.getRecipeById(id)
 })
 </script>
 <template>
-    <div v-if="!recipe" style="min-height: 90vh; display: flex; justify-content: center; align-items: center;">
+    <!-- такая проверка, потому что просто recipe не работает -->
+    <div v-if="!recipe.id" style="min-height: 90vh; display: flex; justify-content: center; align-items: center;">
         <v-progress-circular :size="50" color="accent" indeterminate></v-progress-circular>
     </div>
     <v-row v-else class="d-flex justify-center">
@@ -61,7 +48,8 @@ onMounted(async () => {
                     <HealthIndex :healthIndex="HI" />
                 </v-col>
                 <v-col class="d-flex align-center justify-end" cols="4">
-                    <Rating :rating="{ likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts }" />
+                    <Rating :id="id"
+                        :rating="{likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts}" />
                 </v-col>
             </v-row>
 
