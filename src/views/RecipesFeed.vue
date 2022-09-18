@@ -63,7 +63,7 @@ onMounted(() => {
             </v-row>
             <v-row class="mt-6">
                 <v-col v-for="recipe in recipesToShow" cols="12">
-                    <RecipeCard :id="recipe.id" />
+                    <RecipeCard :_id="recipe._id" />
                 </v-col>
             </v-row>
         </v-col>

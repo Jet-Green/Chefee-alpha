@@ -10,7 +10,7 @@ import Rating from '../components/recipe/Rating.vue'
 const route = useRoute()
 const recipesStore = useRecipes()
 
-let id = route.query.id;
+let _id = route.query._id;
 
 let recipe = computed(() => recipesStore.currentRecipe)
 
@@ -23,12 +23,12 @@ let HI = computed(() =>
 )
 
 onMounted(() => {
-    recipesStore.getRecipeById(id)
+    recipesStore.getRecipeById(_id)
 })
 </script>
 <template>
     <!-- такая проверка, потому что просто recipe не работает -->
-    <div v-if="!recipe.id" style="min-height: 90vh; display: flex; justify-content: center; align-items: center;">
+    <div v-if="!recipe._id" style="min-height: 90vh; display: flex; justify-content: center; align-items: center;">
         <v-progress-circular :size="50" color="accent" indeterminate></v-progress-circular>
     </div>
     <v-row v-else class="d-flex justify-center">
@@ -48,7 +48,7 @@ onMounted(() => {
                     <HealthIndex :healthIndex="HI" />
                 </v-col>
                 <v-col class="d-flex align-center justify-end" cols="4">
-                    <Rating :id="id"
+                    <Rating :_id="_id"
                         :rating="{likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts}" />
                 </v-col>
             </v-row>

@@ -14,8 +14,8 @@ export const useRecipes = defineStore('recipes', {
 
     },
     actions: {
-        async getRecipeById(id) {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/get?id=${id}`)
+        async getRecipeById(_id) {
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/get?id=${_id}`)
 
             this.currentRecipe = data;
         },
@@ -81,13 +81,20 @@ export const useRecipes = defineStore('recipes', {
                 })
                 .catch((err) => console.error(err))
         },
-        async likeRecipe(value, id) {
+        async likeRecipe(value, _id) {
             // RecipesService.likeRecipe(id)
-            let found = this.recipesToShow.find(recipe => recipe.id == id)
+            let found = this.recipesToShow.find(recipe => recipe._id == _id)
 
             if (value && found)
                 found.likes++;
             else if (found) found.likes--;
+
+            if (value) {
+                let res = await RecipesService.changeRating(_id, 'likes', 'increase')
+            }
+            else {
+                let res = await RecipesService.changeRating(_id, 'likes', 'decrease')
+            }
         }
     },
 })

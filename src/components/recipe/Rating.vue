@@ -8,11 +8,11 @@ import heartActive from '../../assets/icons/heart-active.svg'
 import comments from '../../assets/icons/comments.svg'
 import repost from '../../assets/icons/repost.svg'
 
-const props = defineProps(['id', 'rating'])
+const props = defineProps(['_id', 'rating'])
 
 const recipesStore = useRecipes()
 
-const id = props.id;
+const _id = props._id;
 
 let rating = props.rating
 
@@ -29,7 +29,7 @@ function like() {
         currentHeart.value = heart;
         rating.likes--;
     }
-    recipesStore.likeRecipe(liked.value, id)
+    recipesStore.likeRecipe(liked.value, _id)
 }
 // function goToComments() {
 //     console.log('go to recipepage  comments');

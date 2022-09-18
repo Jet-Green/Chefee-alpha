@@ -11,11 +11,11 @@ import heart from '../../assets/icons/heart.svg'
 
 const router = useRouter();
 const useRecipesStore = useRecipes();
-const props = defineProps(['id'])
+const props = defineProps(['_id'])
 
-let id = props.id
+let _id = props._id
 let recipe = computed(() =>
-    useRecipesStore.recipesToShow.find((r) => r.id == id)
+    useRecipesStore.recipesToShow.find((r) => r._id == _id)
 )
 
 
@@ -81,7 +81,7 @@ let HI = computed(() =>
 
 
         <v-row class="photo-section"
-            @click="router.push({ name: 'RecipePage', query: { id: recipe.id }, params: { recipe } })">
+            @click="router.push({ name: 'RecipePage', query: { _id: recipe._id }, params: { recipe } })">
             <v-col>
                 <v-img :src="recipe.previewImage"></v-img>
             </v-col>
@@ -90,7 +90,8 @@ let HI = computed(() =>
 
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
-                <Rating :id="id" :rating="{likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts}" />
+                <Rating :_id="_id"
+                    :rating="{likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts}" />
             </v-col>
             <v-col>
                 <HealthIndex :healthIndex="HI" />
