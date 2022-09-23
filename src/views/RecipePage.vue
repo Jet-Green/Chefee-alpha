@@ -49,7 +49,7 @@ onMounted(() => {
                 </v-col>
                 <v-col class="d-flex align-center justify-end" cols="4">
                     <Rating :_id="_id"
-                        :rating="{likes: recipe.likes, comments: recipe.comments, reposts: recipe.reposts}" />
+                        :rating="{likes: recipe.likes, likedBy: recipe.likedBy, comments: recipe.comments, reposts: recipe.reposts}" />
                 </v-col>
             </v-row>
 

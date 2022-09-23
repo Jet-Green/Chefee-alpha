@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 
 import { useRecipes } from "../../stores/recipes"
 import { useUser } from '../../stores/userStore'
 
 import heart from '../../assets/icons/heart.svg'
 import heartActive from '../../assets/icons/heart-active.svg'
-import comments from '../../assets/icons/comments.svg'
+// import comments from '../../assets/icons/comments.svg'
 import repost from '../../assets/icons/repost.svg'
 
 const props = defineProps(['_id', 'rating'])
@@ -15,10 +15,10 @@ const recipesStore = useRecipes()
 const userStore = useUser()
 
 const _id = props._id;
-
 let rating = props.rating
 
 let liked = ref(false)
+
 let currentHeart = ref(heart)
 function like() {
     liked.value = !liked.value;
@@ -40,6 +40,12 @@ function like() {
 function share() {
     console.log('share');
 }
+onMounted(() => {
+    if (rating.likedBy.find((e) => e.email == userStore.user.email)) {
+        currentHeart.value = heartActive;
+        liked.value = true;
+    }
+})
 </script>
 <template>
     <div class="d-flex align-center" v-if="rating">
