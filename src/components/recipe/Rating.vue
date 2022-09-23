@@ -68,6 +68,10 @@ function like() {
 // }
 let shareDialog = ref(false)
 function share() {
+    if (!userStore.isAuth) {
+        openLoginDialog()
+        return;
+    }
     shareDialog.value = true;
 }
 
