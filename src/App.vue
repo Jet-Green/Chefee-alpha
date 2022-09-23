@@ -78,7 +78,7 @@ onMounted(() => {
                         <v-btn @click="openLoginDialog">
                             войти
                         </v-btn>
-                        <v-dialog v-model="loginDialog" persistent>
+                        <v-dialog v-model="loginDialog">
                             <v-card style="min-width: 40vw">
                                 <v-card-title>
                                     <h3>Вход</h3>
@@ -105,6 +105,9 @@ onMounted(() => {
                                     <v-btn @click="login">
                                         войти
                                     </v-btn>
+                                    <v-btn @click="openRegistrationDialog">
+                                        регистрация
+                                    </v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -113,7 +116,7 @@ onMounted(() => {
                         <v-btn @click="openRegistrationDialog">
                             регистрация
                         </v-btn>
-                        <v-dialog v-model="registrationDialog" persistent>
+                        <v-dialog v-model="registrationDialog">
                             <v-card style="min-width: 30vw">
                                 <v-card-title>
                                     <h3>Регистрация</h3>
@@ -139,6 +142,9 @@ onMounted(() => {
                                 <v-card-actions>
                                     <v-btn @click="registration">
                                         зарегистрироваться
+                                    </v-btn>
+                                    <v-btn @click="openLoginDialog">
+                                        войти
                                     </v-btn>
                                 </v-card-actions>
                             </v-card>

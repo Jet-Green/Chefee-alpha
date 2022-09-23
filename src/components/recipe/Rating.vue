@@ -17,10 +17,39 @@ const userStore = useUser()
 const _id = props._id;
 let rating = props.rating
 
+let loginEmail = ref('')
+let loginPassword = ref('')
+let registrationEmail = ref('')
+let registrationPassword = ref('')
+
+let loginDialog = ref(false)
+function openLoginDialog() {
+    loginDialog.value = true;
+    registrationDialog.value = false;
+}
+function login() {
+    userStore.login(loginEmail.value, loginPassword.value)
+    loginDialog.value = false;
+}
+
+let registrationDialog = ref(false)
+function openRegistrationDialog() {
+    registrationDialog.value = true;
+    loginDialog.value = false;
+}
+function registration() {
+    userStore.registration(registrationEmail.value, registrationPassword.value)
+    registrationDialog.value = false;
+}
+
 let liked = ref(false)
 
 let currentHeart = ref(heart)
 function like() {
+    if (!userStore.isAuth) {
+        openLoginDialog()
+        return;
+    }
     liked.value = !liked.value;
 
     if (liked.value) {
@@ -31,7 +60,7 @@ function like() {
         currentHeart.value = heart;
         rating.likes--;
     }
-
+    // recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
     recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
 }
 // function goToComments() {
@@ -45,6 +74,7 @@ function share() {
 function addShared() {
     recipesStore.shareRecipe(_id)
 }
+
 onMounted(() => {
     if (rating.likedBy.find((e) => e.email == userStore.user.email)) {
         currentHeart.value = heartActive;
@@ -83,6 +113,70 @@ onMounted(() => {
                         </b>
                     </ShareNetwork>
                 </v-card-text>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="loginDialog">
+            <v-card style="min-width: 40vw">
+                <v-card-title>
+                    <h3>Вход</h3>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field v-model="loginEmail" placeholder="email" variant="outlined"
+                                    hide-details="auto" density="compact" class="search-input">
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field v-model="loginPassword" placeholder="пароль" variant="outlined"
+                                    hide-details="auto" density="compact" class="search-input" type="password">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn @click="login">
+                        войти
+                    </v-btn>
+                    <v-btn @click="openRegistrationDialog">
+                        регистрация
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+
+        <v-dialog v-model="registrationDialog">
+            <v-card style="min-width: 30vw">
+                <v-card-title>
+                    <h3>Регистрация</h3>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field v-model="registrationEmail" placeholder="email" variant="outlined"
+                                    hide-details="auto" density="compact" class="search-input">
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field v-model="registrationPassword" placeholder="пароль" variant="outlined"
+                                    hide-details="auto" density="compact" class="search-input" type="password">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn @click="registration">
+                        зарегистрироваться
+                    </v-btn>
+                    <v-btn @click="openLoginDialog">
+                        вход
+                    </v-btn>
+                </v-card-actions>
             </v-card>
         </v-dialog>
     </div>

@@ -91,10 +91,12 @@ export const useRecipes = defineStore('recipes', {
             if (value) {
                 let res = await RecipesService.changeRating(_id, 'likes', 'incr', userEmail)
                 console.log(res);
+                return res
             }
             else {
                 let res = await RecipesService.changeRating(_id, 'likes', 'decr', userEmail)
                 console.log(res);
+                return res
             }
         },
         async shareRecipe(_id) {
