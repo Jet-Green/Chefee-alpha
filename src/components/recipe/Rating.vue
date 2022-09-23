@@ -1,7 +1,8 @@
 <script setup>
-import { ref, computed } from "vue"
+import { ref } from "vue"
 
 import { useRecipes } from "../../stores/recipes"
+import { useUser } from '../../stores/userStore'
 
 import heart from '../../assets/icons/heart.svg'
 import heartActive from '../../assets/icons/heart-active.svg'
@@ -11,6 +12,7 @@ import repost from '../../assets/icons/repost.svg'
 const props = defineProps(['_id', 'rating'])
 
 const recipesStore = useRecipes()
+const userStore = useUser()
 
 const _id = props._id;
 
@@ -29,7 +31,8 @@ function like() {
         currentHeart.value = heart;
         rating.likes--;
     }
-    recipesStore.likeRecipe(liked.value, _id)
+
+    recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
 }
 // function goToComments() {
 //     console.log('go to recipepage  comments');

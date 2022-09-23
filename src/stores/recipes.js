@@ -81,8 +81,7 @@ export const useRecipes = defineStore('recipes', {
                 })
                 .catch((err) => console.error(err))
         },
-        async likeRecipe(value, _id) {
-            // RecipesService.likeRecipe(id)
+        async likeRecipe(value, _id, userEmail) {
             let found = this.recipesToShow.find(recipe => recipe._id == _id)
 
             if (value && found)
@@ -90,10 +89,12 @@ export const useRecipes = defineStore('recipes', {
             else if (found) found.likes--;
 
             if (value) {
-                let res = await RecipesService.changeRating(_id, 'likes', 'increase')
+                let res = await RecipesService.changeRating(_id, 'likes', 'incr', userEmail)
+                console.log(res);
             }
             else {
-                let res = await RecipesService.changeRating(_id, 'likes', 'decrease')
+                let res = await RecipesService.changeRating(_id, 'likes', 'decr', userEmail)
+                console.log(res);
             }
         }
     },
