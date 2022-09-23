@@ -7,10 +7,14 @@ import './styles/main.scss'
 
 import router from './plugins/router'
 
+import VueSocialSharing from 'vue-social-sharing'
+
+
 loadFonts()
 
 createApp(App)
   .use(router)
+  .use(VueSocialSharing)
   .use(vuetify)
   .use(createPinia())
   .mount('#app')

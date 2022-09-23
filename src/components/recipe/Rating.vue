@@ -37,8 +37,13 @@ function like() {
 // function goToComments() {
 //     console.log('go to recipepage  comments');
 // }
+let shareDialog = ref(false)
 function share() {
-    console.log('share');
+    shareDialog.value = true;
+}
+
+function addShared() {
+    recipesStore.shareRecipe(_id)
 }
 onMounted(() => {
     if (rating.likedBy.find((e) => e.email == userStore.user.email)) {
@@ -59,6 +64,27 @@ onMounted(() => {
         <div class="rating-item" @click="share">
             <img :src="repost" height="24" class="mr-1" /> {{ rating.reposts }}
         </div>
+        <v-dialog v-model="shareDialog">
+            <v-card>
+                <v-card-title>Поделиться рецептом</v-card-title>
+                <v-card-text>
+                    <ShareNetwork network="VK" :url="'http://localhost:5173' + '/recipe&_id=' + _id"
+                        :title="'Кулинарный помощник Chefee | ' + rating.title + '\n' + rating.description"
+                        description="Готовьте вместе с нами!" hashtags="рецепты,еда" @open="addShared">
+                        <b>
+                            VK
+                        </b>
+                    </ShareNetwork>
+                    <ShareNetwork network="Telegram" :url="'http://localhost:5173' + '/recipe&_id=' + _id"
+                        :title="'Кулинарный помощник Chefee | ' + rating.title + '  ' + rating.description"
+                        description="Готовьте вместе с нами!" hashtags="рецепты,еда" @open="addShared">
+                        <b>
+                            Telegram
+                        </b>
+                    </ShareNetwork>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 <style scoped lang="scss">

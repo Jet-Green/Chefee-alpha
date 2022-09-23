@@ -48,8 +48,7 @@ onMounted(() => {
                     <HealthIndex :healthIndex="HI" />
                 </v-col>
                 <v-col class="d-flex align-center justify-end" cols="4">
-                    <Rating :_id="_id"
-                        :rating="{likes: recipe.likes, likedBy: recipe.likedBy, comments: recipe.comments, reposts: recipe.reposts}" />
+                    <Rating :_id="_id" :rating="recipe" />
                 </v-col>
             </v-row>
 

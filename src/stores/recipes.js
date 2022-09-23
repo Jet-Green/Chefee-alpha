@@ -96,6 +96,10 @@ export const useRecipes = defineStore('recipes', {
                 let res = await RecipesService.changeRating(_id, 'likes', 'decr', userEmail)
                 console.log(res);
             }
+        },
+        async shareRecipe(_id) {
+            let res = await RecipesService.changeRating(_id, 'reposts', 'incr', null)
+            console.log(res);
         }
     },
 })

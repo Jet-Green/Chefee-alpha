@@ -90,8 +90,7 @@ let HI = computed(() =>
 
         <v-row class="rating-section">
             <v-col class="d-flex align-center">
-                <Rating :_id="_id"
-                    :rating="{likes: recipe.likes, likedBy: recipe.likedBy, comments: recipe.comments, reposts: recipe.reposts}" />
+                <Rating :_id="_id" :rating="recipe" />
             </v-col>
             <v-col>
                 <HealthIndex :healthIndex="HI" />
