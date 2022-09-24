@@ -102,16 +102,16 @@ onMounted(() => {
             <v-card>
                 <v-card-title>Поделиться рецептом</v-card-title>
                 <v-card-text>
-                    <ShareNetwork network="VK" :url="'http://localhost:5173' + '/recipe&_id=' + _id"
-                        :title="'Кулинарный помощник Chefee | ' + rating.title + '\n' + rating.description"
-                        description="Готовьте вместе с нами!" hashtags="рецепты,еда" @open="addShared">
+                    <ShareNetwork network="VK" :url="'http://localhost:5173' + '/recipe?_id=' + _id"
+                        :title="'Кулинарный помощник Chefee | ' + rating.title" description="Готовьте вместе с нами!"
+                        hashtags="рецепты,еда" @open="addShared">
                         <b>
                             VK
                         </b>
                     </ShareNetwork>
-                    <ShareNetwork network="Telegram" :url="'http://localhost:5173' + '/recipe&_id=' + _id"
-                        :title="'Кулинарный помощник Chefee | ' + rating.title + '  ' + rating.description"
-                        description="Готовьте вместе с нами!" hashtags="рецепты,еда" @open="addShared">
+                    <ShareNetwork network="Telegram" :url="'http://localhost:5173' + '/recipe?_id=' + _id"
+                        :title="'Кулинарный помощник Chefee | ' + rating.title" description="Готовьте вместе с нами!"
+                        hashtags="рецепты,еда" @open="addShared">
                         <b>
                             Telegram
                         </b>

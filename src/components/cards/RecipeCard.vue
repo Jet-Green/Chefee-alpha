@@ -29,7 +29,7 @@ let HI = computed(() =>
 </script>
 <template>
     <div class="recipe-card">
-        <v-row class="author-section">
+        <!-- <v-row class="author-section">
             <v-col>
                 <v-avatar class="avatar"></v-avatar>
                 {{ recipe.author }}
@@ -38,17 +38,17 @@ let HI = computed(() =>
                 <v-btn color="accent" variant="text" class="accent-btn">Подписаться
                 </v-btn>
             </v-col>
-        </v-row>
+        </v-row> -->
 
 
-        <v-row class="recipe-info-section">
-            <v-col cols="12" md="8" lg="7">
-                <h3>
+        <v-row class="recipe-info-section" gutter="16">
+            <v-col cols="12" md="5">
+                <h2 style="font-weight: 500;">
                     {{ recipe.title }}
-                </h3>
+                </h2>
             </v-col>
-            <v-col class="d-flex align-center">
-                <v-menu :close-on-content-click="false" location="end">
+            <v-col class="d-flex align-center" style="justify-content: end;">
+                <v-menu :close-on-content-click="false">
                     <template v-slot:activator="{ props }">
                         <div v-bind="props" class="ingr-dropdown">
                             <div v-if="!useRecipesStore.requestsHistory.length">
@@ -71,10 +71,10 @@ let HI = computed(() =>
                     </v-card>
                 </v-menu>
             </v-col>
-            <v-col class="d-flex align-center jusitfy-end">
+            <v-col class="d-flex align-center" style="justify-content: end;">
                 {{ recipe.portions }} порций
             </v-col>
-            <v-col class="d-flex align-center">
+            <v-col class="d-flex align-center" style="justify-content: end;">
                 {{ recipe.time }}
             </v-col>
         </v-row>
@@ -158,7 +158,7 @@ let HI = computed(() =>
     background-color: #fff;
 
     .author-section {
-        margin: 20px 20px 0 20px;
+        margin: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
