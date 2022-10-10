@@ -7,7 +7,7 @@ import RecipeCard from '../components/cards/RecipeCard.vue'
 let useRecipesStore = useRecipes()
 
 let searchRequest = ref('')
-let requestsHistory = ref([])
+let requestsHistory = computed(() => useRecipesStore.requestsHistory)
 
 let recipesToShow = computed(() => useRecipesStore.recipesToShow)
 
@@ -17,7 +17,6 @@ function search() {
         useRecipesStore.fetchReipesByStrSearch();
         // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
         // console.log(searchRequest.value);
-        // useSearchStore.addRequestsHistory(searchRequest.value)
         // console.log(useSearchStore.requestsHistory);
     }
 }
@@ -61,7 +60,7 @@ onMounted(() => {
                     <v-chip color="accent">{{ ingredient.name }}</v-chip>
                 </v-col>
             </v-row>
-            <v-row class="mt-6">
+            <v-row class=" mt-6">
                 <v-col v-for="recipe in recipesToShow" cols="12">
                     <RecipeCard :_id="recipe._id" />
                 </v-col>
