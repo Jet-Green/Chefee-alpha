@@ -63,7 +63,7 @@ export const useRecipes = defineStore('recipes', {
         },
         async fetchReipesByStrSearch() {
             let searchRequest = this.searchRequest;
-            axios.get(`http://localhost:3300/recipes/get-by-str-request?request=${searchRequest}`)
+            axios.get(`${import.meta.env.VITE_API_URL}/recipes/get-by-str-request?request=${searchRequest}`)
                 .then((res) => {
                     let data = res.data
                     this.addRequestsHistory(searchRequest)
