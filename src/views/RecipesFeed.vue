@@ -7,13 +7,30 @@ import RecipeCard from '../components/cards/RecipeCard.vue'
 let useRecipesStore = useRecipes()
 
 let searchRequest = ref('')
-let requestsHistory = computed(() => useRecipesStore.requestsHistory)
+let requestsHistory = computed(() => {
+    if (useRecipesStore.searchRequest) {
+        let recipes = useRecipesStore.recipesToShow
+        // с дубликатами
+        let tempHistory = [];
+        for (let i = 0; i < recipes.length; i++) {
+            let ingredients = recipes[i].ingredients;
+            for (let ingredient of ingredients) {
+                if (ingredient.name.toLowerCase().includes(useRecipesStore.searchRequest.toLowerCase())) {
+                    tempHistory.push(ingredient.name)
+                }
+            }
+        }
+
+        return tempHistory.filter((el, index) => tempHistory.indexOf(el) === index)
+    }
+    return []
+})
 
 let recipesToShow = computed(() => useRecipesStore.recipesToShow)
 
 function search() {
     if (searchRequest.value) {
-        useRecipesStore.searchRequest = searchRequest.value
+        useRecipesStore.searchRequest = searchRequest.value;
         useRecipesStore.fetchReipesByStrSearch();
         // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
         // console.log(searchRequest.value);
@@ -57,17 +74,19 @@ onMounted(() => {
             </v-row>
             <v-row>
                 <v-col v-for="ingredient of requestsHistory">
-                    <v-chip color="accent">{{ ingredient.name }}</v-chip>
+                    <v-chip color="accent">{{ ingredient }}</v-chip>
                 </v-col>
             </v-row>
-            <v-row class=" mt-6">
+            <v-row v-if="recipesToShow.length" class="mt-6">
                 <v-col v-for="recipe in recipesToShow" cols="12">
                     <RecipeCard :_id="recipe._id" />
+                </v-col>
+            </v-row>
+            <v-row v-else style="display: flex; text-align: center;">
+                <v-col>
+                    Ничего не нашлось
                 </v-col>
             </v-row>
         </v-col>
     </v-row>
 </template>
-<!-- 
-
- -->
