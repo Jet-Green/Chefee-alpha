@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useRecipes } from '../stores/recipes'
 
 import RecipeCard from '../components/cards/RecipeCard.vue'
@@ -7,47 +7,17 @@ import RecipeCard from '../components/cards/RecipeCard.vue'
 let useRecipesStore = useRecipes()
 
 let searchRequest = ref('')
-let requestsHistory = computed(() => {
-    if (useRecipesStore.searchRequest) {
-        let recipes = useRecipesStore.recipesToShow
-        // с дубликатами
-        let tempHistory = [];
-        for (let i = 0; i < recipes.length; i++) {
-            let ingredients = recipes[i].ingredients;
-            for (let ingredient of ingredients) {
-                if (ingredient.name.toLowerCase().includes(useRecipesStore.searchRequest.toLowerCase())) {
-                    tempHistory.push(ingredient.name)
-                }
-            }
-        }
 
-        return tempHistory.filter((el, index) => tempHistory.indexOf(el) === index)
-    }
-    return []
-})
+let requestsHistory = computed(() => useRecipesStore.requestsHistory)
 
 let recipesToShow = computed(() => useRecipesStore.recipesToShow)
 
 function search() {
-    if (searchRequest.value) {
-        useRecipesStore.searchRequest = searchRequest.value;
+    if (searchRequest.value.trim()) {
+        useRecipesStore.setSearchRequest(searchRequest.value.trim());
         useRecipesStore.fetchReipesByStrSearch();
-        // ищется searchRequest.value в ингрединетах и добавляется в историю запросов
-        // console.log(searchRequest.value);
-        // console.log(useSearchStore.requestsHistory);
     }
 }
-
-// useRecipesStore.$subscribe((mutation, state) => {
-//     if (mutation.events.key === 'recipesToShow') {
-//         let newRecipes = state.recipesToShow;
-//         recipesToShow.value = newRecipes;
-//         // requestsHistory.value = state.requestsHistory;
-//     }
-
-//     // TODO. 
-//     requestsHistory.value = state.requestsHistory;
-// })
 
 onMounted(() => {
     useRecipesStore.fetchAllRecipes()
@@ -73,8 +43,14 @@ onMounted(() => {
                 </v-col>
             </v-row>
             <v-row>
-                <v-col v-for="ingredient of requestsHistory">
-                    <v-chip color="accent">{{ ingredient }}</v-chip>
+                <v-col>
+                    <v-chip color="accent" v-for="ingredient of requestsHistory" class="ma-1">
+                        {{ ingredient }}
+                        <template #append>
+                            <span class="material-icons" @click="useRecipesStore.deleteFromReqHistory(ingredient)"
+                                style="cursor: pointer;">close</span>
+                        </template>
+                    </v-chip>
                 </v-col>
             </v-row>
             <v-row v-if="recipesToShow.length" class="mt-6">

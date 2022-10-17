@@ -14,6 +14,26 @@ export const useRecipes = defineStore('recipes', {
 
     },
     actions: {
+        deleteFromReqHistory(ingr) {
+            this.requestsHistory.splice(this.requestsHistory.indexOf(ingr), 1)
+        },
+        setSearchRequest(searchRequest) {
+            this.searchRequest = searchRequest;
+
+            this.requestsHistory.push(searchRequest)
+            // let recipes = this.recipesToShow
+            // с дубликатами
+            // let tempHistory = [];
+            // for (let i = 0; i < recipes.length; i++) {
+            //     let ingredients = recipes[i].ingredients;
+            //     for (let ingredient of ingredients) {
+            //         if (ingredient.name.toLowerCase().includes(this.searchRequest.toLowerCase())) {
+            //             tempHistory.push(ingredient.name)
+            //         }
+            //     }
+            // }
+            // this.requestsHistory.push(...tempHistory.filter((el, index) => tempHistory.indexOf(el) === index))
+        },
         async getRecipeById(_id) {
             const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/get?id=${_id}`)
 

@@ -18,9 +18,8 @@ let registrationEmail = ref('')
 let registrationPassword = ref('')
 
 function search() {
-    if (searchRequest.value) {
-        useRecipesStore.searchRequest = searchRequest.value
-        // Вызывается action addREquestHistory, ищется searchRequest.value в ингрединетах и добавляется в историю запросов
+    if (searchRequest.value.trim()) {
+        useRecipesStore.setSearchRequest(searchRequest.value.trim());
         useRecipesStore.fetchReipesByStrSearch();
     }
 }

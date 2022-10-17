@@ -163,7 +163,7 @@ let HI = computed(() =>
         justify-content: space-between;
         align-items: center;
 
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 500;
 
 
@@ -175,7 +175,7 @@ let HI = computed(() =>
 
     .recipe-info-section {
         margin: 0 20px 0 20px;
-        font-size: 12px;
+        font-size: 14px;
 
         .ingr-dropdown {
             display: flex;
@@ -192,7 +192,7 @@ let HI = computed(() =>
 
     .rating-section {
         margin: 0 20px 0 20px;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
     }
 
