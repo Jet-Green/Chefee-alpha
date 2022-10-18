@@ -6,6 +6,8 @@ import UserService from './services/UserService';
 import { useRecipes } from './stores/recipes'
 import { useUser } from './stores/userStore'
 
+import logo from './assets/chefee-logo.svg'
+
 let useRecipesStore = useRecipes()
 let userStore = useUser()
 
@@ -51,8 +53,8 @@ onMounted(() => {
     <v-layout>
         <v-app-bar elevation="0" app>
             <v-row class="d-flex justify-space-between align-center">
-                <v-col class="d-flex align-center" cols="2">
-                    logo
+                <v-col class="d-flex align-center jusitfy-center" cols="2">
+                    <img :src="logo" class="ml-1" />
                 </v-col>
 
                 <v-col class="d-none d-md-flex align-center" cols="8">
