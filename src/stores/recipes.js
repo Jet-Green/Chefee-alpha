@@ -16,6 +16,7 @@ export const useRecipes = defineStore('recipes', {
     actions: {
         deleteFromReqHistory(ingr) {
             this.requestsHistory.splice(this.requestsHistory.indexOf(ingr), 1)
+            this.fetchReipesByStrSearch()
         },
         setSearchRequest(searchRequest) {
             this.searchRequest = searchRequest;
@@ -49,8 +50,8 @@ export const useRecipes = defineStore('recipes', {
                 .catch((err) => console.error(err))
         },
         async fetchReipesByStrSearch() {
-            const request = this.searchRequest;
-            axios.get(`${import.meta.env.VITE_API_URL}/recipes/get-by-str-request?request=${request}`)
+            // const request = this.searchRequest;
+            axios.get(`${import.meta.env.VITE_API_URL}/recipes/get-by-str-request?request=${this.requestsHistory}`)
                 .then((res) => {
                     let data = res.data
                     this.recipesToShow = data;
