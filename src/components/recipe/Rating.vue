@@ -42,9 +42,8 @@ function registration() {
     registrationDialog.value = false;
 }
 
-let liked = ref(false)
-
 let currentHeart = ref(heart)
+let liked = ref(false)
 function like() {
     if (!userStore.isAuth) {
         openLoginDialog()
@@ -52,14 +51,6 @@ function like() {
     }
     liked.value = !liked.value;
 
-    if (liked.value) {
-        currentHeart.value = heartActive;
-        rating.likes++;
-    }
-    else {
-        currentHeart.value = heart;
-        rating.likes--;
-    }
     // recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
     recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
 }

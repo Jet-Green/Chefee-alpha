@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed } from "vue"
+import { computed } from "vue"
 import { useRouter } from 'vue-router'
 import { useRecipes } from '../../stores/recipes'
 
