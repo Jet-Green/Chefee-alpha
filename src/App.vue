@@ -151,10 +151,11 @@ onMounted(() => {
                             </v-card>
                         </v-dialog>
                     </div>
-
                 </v-col>
                 <v-col class="d-lg-none d-flex justify-end" cols="2">
-                    <span class="material-icons ma-3">menu</span>
+                    <v-btn @click="openLoginDialog" class="d-flex align-center">
+                        <span class="material-icons ma-3">menu</span>
+                    </v-btn>
                 </v-col>
             </v-row>
         </v-app-bar>

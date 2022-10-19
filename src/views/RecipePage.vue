@@ -41,13 +41,13 @@ onMounted(() => {
 
 
             <v-row class="rating-tray">
-                <v-col cols="4">
+                <v-col cols="12" sm="4">
                     Время приготовления {{ recipe.time }}
                 </v-col>
-                <v-col class="d-flex justify-center" cols="4">
+                <v-col class="d-flex justify-center" cols="6" sm="4">
                     <HealthIndex :healthIndex="HI" />
                 </v-col>
-                <v-col class="d-flex align-center justify-end" cols="4">
+                <v-col class="d-flex align-center justify-end" cols="6" sm="4">
                     <Rating :_id="_id" :rating="recipe" />
                 </v-col>
             </v-row>
@@ -70,7 +70,7 @@ onMounted(() => {
             </v-row>
 
             <v-row class="ingredients">
-                <v-col cols="6">
+                <v-col cols="12" sm="6">
                     <v-row>
                         <v-col>
                             <h3>Ингредиенты</h3>
@@ -98,18 +98,18 @@ onMounted(() => {
                 </v-col>
                 <v-col v-for="(step, index) of recipe.steps" cols="12">
                     <v-row v-if="index % 2 == 0">
-                        <v-col cols="6">
+                        <v-col cols="12" sm="6">
                             <v-img :src="step.image"></v-img>
                         </v-col>
-                        <v-col cols="6">
+                        <v-col cols="12" sm="6">
                             {{ step.description }}
                         </v-col>
                     </v-row>
                     <v-row v-else>
-                        <v-col cols="6">
+                        <v-col cols="12" sm="6">
                             {{ step.description }}
                         </v-col>
-                        <v-col cols="6">
+                        <v-col cols="12" sm="6">
                             <v-img :src="step.image"></v-img>
                         </v-col>
                     </v-row>
