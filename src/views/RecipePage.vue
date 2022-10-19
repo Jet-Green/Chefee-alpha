@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useRecipes } from '../stores/recipes'
 import axios from 'axios'
 
@@ -8,6 +8,7 @@ import HealthIndex from '../components/recipe/HealthIndex.vue'
 import Rating from '../components/recipe/Rating.vue'
 
 const route = useRoute()
+const router = useRouter()
 const recipesStore = useRecipes()
 
 let _id = route.query._id;
@@ -33,6 +34,13 @@ onMounted(() => {
     </div>
     <v-row v-else class="d-flex justify-center">
         <v-col cols="12" lg="8">
+            <v-row>
+                <v-col cols="auto" class="d-flex align-center" style="cursor: pointer" @click="router.push('/')">
+                    <span class="material-icons mr-2">arrow_back</span> назад
+                </v-col>
+            </v-row>
+
+
             <v-row>
                 <v-col cols="12">
                     <h1 class="recipe-title">{{ recipe.title }}</h1>

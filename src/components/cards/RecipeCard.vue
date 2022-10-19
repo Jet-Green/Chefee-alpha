@@ -42,7 +42,9 @@ let HI = computed(() =>
 
 
         <v-row class="recipe-info-section" gutter="16">
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="5"
+                @click="router.push({ name: 'RecipePage', query: { _id: recipe._id }, params: { recipe } })"
+                style="cursor: pointer">
                 <h2 style="font-weight: 500;">
                     {{ recipe.title }}
                 </h2>
@@ -81,7 +83,8 @@ let HI = computed(() =>
 
 
         <v-row class="photo-section"
-            @click="router.push({ name: 'RecipePage', query: { _id: recipe._id }, params: { recipe } })">
+            @click="router.push({ name: 'RecipePage', query: { _id: recipe._id }, params: { recipe } })"
+            style="cursor: pointer">
             <v-col>
                 <v-img :src="recipe.previewImage"></v-img>
             </v-col>
