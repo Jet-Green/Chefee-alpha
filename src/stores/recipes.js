@@ -71,7 +71,7 @@ export const useRecipes = defineStore('recipes', {
                 return res
             }
             else {
-                let res = await RecipesService.like(_id, 'inc', userEmail)
+                let res = await RecipesService.like(_id, 'dec', userEmail)
                 console.log(res);
                 return res
             }

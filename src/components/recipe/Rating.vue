@@ -50,6 +50,14 @@ function like() {
         return;
     }
     liked.value = !liked.value;
+    if (liked.value) {
+        currentHeart.value = heartActive;
+        rating.likes++;
+    }
+    else {
+        currentHeart.value = heart;
+        rating.likes--;
+    }
 
     // recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
     recipesStore.likeRecipe(liked.value, _id, userStore.user.email)
