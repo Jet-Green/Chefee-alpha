@@ -6,5 +6,8 @@ export default {
     },
     async like(_id, action, userEmail) {
         return $api.post('/recipes/like', { _id, action, userEmail })
+    },
+    async share(_id, userEmail) {
+        return $api.post('/recipes/share', { _id, userEmail })
     }
 }

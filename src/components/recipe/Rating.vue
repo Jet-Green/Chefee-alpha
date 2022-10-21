@@ -75,7 +75,7 @@ function share() {
 }
 
 function addShared() {
-    recipesStore.shareRecipe(_id)
+    recipesStore.shareRecipe(_id, userStore.user.email)
 }
 
 onMounted(() => {

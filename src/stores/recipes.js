@@ -76,8 +76,8 @@ export const useRecipes = defineStore('recipes', {
                 return res
             }
         },
-        async shareRecipe(_id) {
-            let res = await RecipesService.changeRating(_id, 'reposts', 'incr', null)
+        async shareRecipe(_id, userEmail) {
+            let res = await RecipesService.share(_id)
             console.log(res);
         }
     },
