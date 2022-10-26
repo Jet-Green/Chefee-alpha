@@ -55,23 +55,6 @@ onMounted(() => {
 </script>
 <template>
     <v-app>
-        <v-navigation-drawer app v-model="drawer" right temporary>
-            <v-list>
-                <v-list-item v-if="userStore.isAuth">
-                    <v-btn @click="userStore.logout">
-                        выйти
-                    </v-btn>
-                </v-list-item>
-                <v-list-item v-if="!userStore.isAuth">
-                    <v-list-item-title @click="openLoginDialog">войти</v-list-item-title>
-                </v-list-item>
-
-                <v-list-item v-if="!userStore.isAuth">
-                    <v-list-item-title @click="openRegistrationDialog">регистрация</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
-
         <v-app-bar elevation="0" app>
             <v-row class="d-flex justify-space-between align-center">
                 <v-col class="d-flex align-center jusitfy-center" cols="2">
@@ -92,14 +75,29 @@ onMounted(() => {
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col class="d-flex justify-end">
-                    <v-btn @click="drawer = !drawer" class="d-flex align-center">
+                    <v-app-bar-nav-icon @click="drawer = !drawer">
                         <span class="material-icons ma-3">menu</span>
-                    </v-btn>
+                    </v-app-bar-nav-icon>
                 </v-col>
             </v-row>
         </v-app-bar>
-
         <v-main>
+            <v-navigation-drawer v-model="drawer" right temporary>
+                <v-list>
+                    <v-list-item v-if="userStore.isAuth">
+                        <v-list-item-title @click="userStore.logout">
+                            выйти
+                        </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item v-if="!userStore.isAuth">
+                        <v-list-item-title @click="openLoginDialog">войти</v-list-item-title>
+                    </v-list-item>
+
+                    <v-list-item v-if="!userStore.isAuth">
+                        <v-list-item-title @click="openRegistrationDialog">регистрация</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-navigation-drawer>
             <v-container>
                 <router-view />
             </v-container>
