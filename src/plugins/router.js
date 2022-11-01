@@ -28,6 +28,11 @@ const router = createRouter({
             path: '/reg',
             name: 'RegistrationPage',
             component: () => import('../views/RegistrationPage.vue')
+        },
+        {
+            path: '/add-recipe',
+            name: 'AddRecipe',
+            component: () => import('../components/dev/AddRecipe.vue')
         }
     ],
     scrollBehavior(to, from, savedPosition) {
