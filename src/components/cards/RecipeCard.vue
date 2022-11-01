@@ -6,9 +6,6 @@ import { useRecipes } from '../../stores/recipes'
 import Rating from '../recipe/Rating.vue'
 import HealthIndex from '../recipe/HealthIndex.vue'
 
-import heart from '../../assets/icons/heart.svg'
-// import arrowRight from '../../assets/icons/arrow-circle-right.svg'
-
 const router = useRouter();
 const useRecipesStore = useRecipes();
 const props = defineProps(['_id'])
@@ -26,6 +23,19 @@ let HI = computed(() =>
         (recipe.value.health.kcal / 700) * 2.5)
         .toFixed(1)
 )
+
+let youHave = computed(() => {
+    let count = 0;
+    for (let ingrInSearch of useRecipesStore.requestsHistory) {
+        for (let ingr of recipe.value.ingredients) {
+            if (ingr.name.toLowerCase().includes(ingrInSearch.toLowerCase())) {
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
+})
 </script>
 <template>
     <div class="recipe-card">
@@ -53,11 +63,11 @@ let HI = computed(() =>
                 <v-menu :close-on-content-click="false">
                     <template v-slot:activator="{ props }">
                         <div v-bind="props" class="ingr-dropdown">
-                            <div v-if="!useRecipesStore.requestsHistory.length">
+                            <div v-if="!youHave">
                                 {{ recipe.ingredients.length }} ингредиентов
                             </div>
                             <div v-else>
-                                Есть {{ useRecipesStore.requestsHistory.length }} из {{ recipe.ingredients.length }}
+                                Есть {{ youHave }} из {{ recipe.ingredients.length }}
                                 ингредиентов
                             </div>
                             <span class="material-icons">expand_more</span>
